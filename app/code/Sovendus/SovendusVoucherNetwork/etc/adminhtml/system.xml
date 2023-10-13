@@ -1,0 +1,206 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="sovendus" translate="label" sortOrder="400">
+			<label>Sovendus</label>
+		</tab>
+        <section id="sovendusvouchernetwork" sortOrder="20" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+            <label>Sovendus Voucher Network &amp; Checkout Benefits</label>
+            <tab>sovendus</tab>
+            <resource>Sovendus_SovendusVoucherNetwork::sovendusvouchernetwork_config</resource>
+            <group id="de_settings" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                <label>Germany Settings</label>
+                <field id="de_enable" type="select" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Enable Germany</label>
+                    <comment/>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="de_traffic_source_number" type="text" sortOrder="20" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Germany Traffic Source Number</label>
+                    <comment/>
+                </field>
+                <field id="de_traffic_medium_number" type="text" sortOrder="30" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Germany Traffic Medium Number</label>
+                    <comment/>
+                </field>
+            </group>
+            <group id="at_settings" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                <label>Austria Settings</label>
+                <field id="at_enable" type="select" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Enable Austria</label>
+                    <comment/>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="at_traffic_source_number" type="text" sortOrder="20" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Austria Traffic Source Number</label>
+                    <comment/>
+                </field>
+                <field id="at_traffic_medium_number" type="text" sortOrder="30" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Austria Traffic Medium Number</label>
+                    <comment/>
+                </field>
+            </group>
+            <group id="nl_settings" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                <label>Netherland Settings</label>
+                <field id="nl_enable" type="select" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Enable Netherland</label>
+                    <comment/>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="nl_traffic_source_number" type="text" sortOrder="20" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Netherland Traffic Source Number</label>
+                    <comment/>
+                </field>
+                <field id="nl_traffic_medium_number" type="text" sortOrder="30" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Netherland Traffic Medium Number</label>
+                    <comment/>
+                </field>
+            </group>
+            <group id="ch_settings" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                <label>Switzerland Settings</label>
+                <field id="ch_enable" type="select" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Enable Switzerland</label>
+                    <comment/>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="ch_traffic_source_number" type="text" sortOrder="20" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Switzerland Traffic Source Number</label>
+                    <comment/>
+                </field>
+                <field id="ch_traffic_medium_number" type="text" sortOrder="30" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Switzerland Traffic Medium Number</label>
+                    <comment/>
+                </field>
+            </group>
+            <group id="fr_settings" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                <label>France Settings</label>
+                <field id="fr_enable" type="select" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Enable France</label>
+                    <comment/>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="fr_traffic_source_number" type="text" sortOrder="20" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>France Traffic Source Number</label>
+                    <comment/>
+                </field>
+                <field id="fr_traffic_medium_number" type="text" sortOrder="30" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>France Traffic Medium Number</label>
+                    <comment/>
+                </field>
+            </group>
+            <group id="it_settings" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                <label>Italy Settings</label>
+                <field id="it_enable" type="select" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Enable Italy</label>
+                    <comment/>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="it_traffic_source_number" type="text" sortOrder="20" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Italy Traffic Source Number</label>
+                    <comment/>
+                </field>
+                <field id="it_traffic_medium_number" type="text" sortOrder="30" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Italy Traffic Medium Number</label>
+                    <comment/>
+                </field>
+            </group>
+            <group id="uk_settings" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                <label>United Kingdom Settings</label>
+                <field id="uk_enable" type="select" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Enable United Kingdom</label>
+                    <comment/>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="uk_traffic_source_number" type="text" sortOrder="20" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>United Kingdom Traffic Source Number</label>
+                    <comment/>
+                </field>
+                <field id="uk_traffic_medium_number" type="text" sortOrder="30" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>United Kingdom Traffic Medium Number</label>
+                    <comment/>
+                </field>
+            </group>
+            <group id="dk_settings" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                <label>Denmark Settings</label>
+                <field id="dk_enable" type="select" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Enable Denmark</label>
+                    <comment/>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="dk_traffic_source_number" type="text" sortOrder="20" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Denmark Traffic Source Number</label>
+                    <comment/>
+                </field>
+                <field id="dk_traffic_medium_number" type="text" sortOrder="30" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Denmark Traffic Medium Number</label>
+                    <comment/>
+                </field>
+            </group>
+            <group id="se_settings" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                <label>Sweden Settings</label>
+                <field id="se_enable" type="select" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Enable Sweden</label>
+                    <comment/>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="se_traffic_source_number" type="text" sortOrder="20" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Sweden Traffic Source Number</label>
+                    <comment/>
+                </field>
+                <field id="se_traffic_medium_number" type="text" sortOrder="30" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Sweden Traffic Medium Number</label>
+                    <comment/>
+                </field>
+            </group>
+            <group id="es_settings" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                <label>Spain Settings</label>
+                <field id="es_enable" type="select" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Enable Spain</label>
+                    <comment/>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="es_traffic_source_number" type="text" sortOrder="20" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Spain Traffic Source Number</label>
+                    <comment/>
+                </field>
+                <field id="es_traffic_medium_number" type="text" sortOrder="30" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Spain Traffic Medium Number</label>
+                    <comment/>
+                </field>
+            </group>
+            <group id="be_settings" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                <label>Belgium Settings</label>
+                <field id="be_enable" type="select" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Enable Belgium</label>
+                    <comment/>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="be_traffic_source_number" type="text" sortOrder="20" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Belgium Traffic Source Number</label>
+                    <comment/>
+                </field>
+                <field id="be_traffic_medium_number" type="text" sortOrder="30" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Belgium Traffic Medium Number</label>
+                    <comment/>
+                </field>
+            </group>
+            <group id="pl_settings" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                <label>Poland Settings</label>
+                <field id="pl_enable" type="select" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Enable Poland</label>
+                    <comment/>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="pl_traffic_source_number" type="text" sortOrder="20" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Poland Traffic Source Number</label>
+                    <comment/>
+                </field>
+                <field id="pl_traffic_medium_number" type="text" sortOrder="30" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Poland Traffic Medium Number</label>
+                    <comment/>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

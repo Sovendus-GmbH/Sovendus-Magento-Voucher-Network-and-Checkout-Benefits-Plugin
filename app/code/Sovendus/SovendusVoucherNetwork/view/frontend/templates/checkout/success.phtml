@@ -1,0 +1,46 @@
+<?php
+use Sovendus\SovendusVoucherNetwork\ViewModel\Order;
+use Magento\Checkout\Block\Onepage\Success;
+?>
+<?php /** @var $block Success */ ?>
+<?php
+/** @var $viewModel Order */
+$viewModel = $block->getData('view_model');
+?>
+<?php
+    $viewModel->initializeSovendusData($block);
+    if ($viewModel->isActive){
+        echo <<<EOD
+            <div id="sovendus-container-1"></div>
+            <script>
+                window.sovIframes = window.sovIframes || [];
+                window.sovIframes.push({
+                    trafficSourceNumber: $viewModel->trafficSourceNumber,
+                    trafficMediumNumber: $viewModel->trafficMediumNumber,
+                    iframeContainerId: 'sovendus-container-1',
+                    timestamp: '$viewModel->timestamp',
+                    sessionId: '$viewModel->sessionId',
+                    orderId: '$viewModel->orderId',
+                    orderValue: '$viewModel->orderValue',
+                    orderCurrency: '$viewModel->orderCurrency',
+                    usedCouponCode: '$viewModel->usedCouponCode',
+                });
+                window.sovConsumer = {
+                    consumerSalutation: '$viewModel->consumerSalutation',
+                    consumerFirstName: '$viewModel->consumerFirstName',
+                    consumerLastName: '$viewModel->consumerLastName',
+                    consumerEmail: '$viewModel->consumerEmail',
+                    consumerPhone : '$viewModel->consumerPhone',
+                    consumerStreet: '$viewModel->consumerStreet',
+                    consumerStreetNumber: '$viewModel->consumerStreetNumber',
+                    consumerZipcode: '$viewModel->consumerZipcode',
+                    consumerCity: '$viewModel->consumerCity',
+                    consumerCountry: '$viewModel->consumerCountry',
+                };
+            </script>
+            <script type="text/javascript" src="https://api.sovendus.com/sovabo/common/js/flexibleIframe.js" async=true></script>
+        EOD;
+
+    }
+
+?>
