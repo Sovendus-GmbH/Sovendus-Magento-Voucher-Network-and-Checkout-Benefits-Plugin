@@ -5,7 +5,7 @@ Official Sovendus Voucher Network & Checkout Benefits Plugin for Magento
 coming soon...
 ## Manual Installation on Magento
 
-1. Download the latest version [from here](https://raw.githubusercontent.com/Sovendus-GmbH/Sovendus-Magento-Voucher-Network-and-Checkout-Benefits-Plugin/main/releases/sovendus-magento-voucher-network-checkout-benefits-module-v-1.0.0.zip)
+1. Download the latest version [from here](https://raw.githubusercontent.com/Sovendus-GmbH/Sovendus-Magento-Voucher-Network-and-Checkout-Benefits-Plugin/main/releases/sovendus-magento-voucher-network-checkout-benefits-module-latest.zip)
 2. Navigate to your magento root folder
 3. Unpack the downloaded module zip file into your magento root folder
 4. After you've unpacked it, the folder structer should look like this: yourMagentoRoot/app/code/Sovendus/SovendusVoucherNetwork
