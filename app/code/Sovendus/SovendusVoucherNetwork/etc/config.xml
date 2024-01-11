@@ -20,6 +20,9 @@
             <it_settings>
                 <it_enable>0</it_enable>
             </it_settings>
+            <ie_settings>
+                <ie_enable>0</ie_enable>
+            </ie_settings>
             <uk_settings>
                 <uk_enable>0</uk_enable>
             </uk_settings>

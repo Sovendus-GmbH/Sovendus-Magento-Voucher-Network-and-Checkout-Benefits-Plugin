@@ -32,6 +32,10 @@ class Config
     const IT_TRAFFIC_SOURCE_NUMBER = 'sovendusvouchernetwork/it_settings/it_traffic_source_number';
     const IT_TRAFFIC_MEDIUM_NUMBER = 'sovendusvouchernetwork/it_settings/it_traffic_medium_number';
 
+    const IE_ENABLE = 'sovendusvouchernetwork/ie_settings/ie_enable';
+    const IE_TRAFFIC_SOURCE_NUMBER = 'sovendusvouchernetwork/ie_settings/ie_traffic_source_number';
+    const IE_TRAFFIC_MEDIUM_NUMBER = 'sovendusvouchernetwork/ie_settings/ie_traffic_medium_number';
+
     const UK_ENABLE = 'sovendusvouchernetwork/uk_settings/uk_enable';
     const UK_TRAFFIC_SOURCE_NUMBER = 'sovendusvouchernetwork/uk_settings/uk_traffic_source_number';
     const UK_TRAFFIC_MEDIUM_NUMBER = 'sovendusvouchernetwork/uk_settings/uk_traffic_medium_number';
@@ -131,7 +135,14 @@ class Config
                     (int) $this->getConfig(self::IT_TRAFFIC_MEDIUM_NUMBER, $storeCode),
 
                 );
-            case "UK":
+            case "IE":
+                return array(
+                    $this->getConfig(self::IE_ENABLE, $storeCode),
+                    (int) $this->getConfig(self::IE_TRAFFIC_SOURCE_NUMBER, $storeCode),
+                    (int) $this->getConfig(self::IE_TRAFFIC_MEDIUM_NUMBER, $storeCode),
+
+                );
+            case "GB":
                 return array(
                     $this->getConfig(self::UK_ENABLE, $storeCode),
                     (int) $this->getConfig(self::UK_TRAFFIC_SOURCE_NUMBER, $storeCode),
