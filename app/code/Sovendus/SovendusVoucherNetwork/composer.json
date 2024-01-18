@@ -3,7 +3,7 @@
     "description": "Sovendus Voucher Network & Checkout Benefits",
     "keywords": ["Sovendus", "Sovendus Voucher Network", "Sovendus CHeckout Benefits", "magento", "magento 2", "magento order thank you", "magento order success", "magento 2 order thank you page", "magento 2 order success page"],
     "type": "magento2-module",
-    "version": "1.0.1",
+    "version": "1.0.2",
       "require": {
           "magento/framework": ">=102.0.0"
       },
