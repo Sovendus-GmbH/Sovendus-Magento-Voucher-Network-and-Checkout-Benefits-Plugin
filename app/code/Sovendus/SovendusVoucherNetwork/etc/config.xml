@@ -11,9 +11,12 @@
             <nl_settings>
                 <nl_enable>0</nl_enable>
             </nl_settings>
-            <ch_settings>
-                <ch_enable>0</ch_enable>
-            </ch_settings>
+            <ch_de_settings>
+                <ch_de_enable>0</ch_de_enable>
+            </ch_de_settings>
+            <ch_fr_settings>
+                <ch_fr_enable>0</ch_fr_enable>
+            </ch_fr_settings>
             <fr_settings>
                 <fr_enable>0</fr_enable>
             </fr_settings>
@@ -35,9 +38,12 @@
             <es_settings>
                 <es_enable>0</es_enable>
             </es_settings>
-            <be_settings>
-                <be_enable>0</be_enable>
-            </be_settings>
+            <be_nl_settings>
+                <be_nl_enable>0</be_nl_enable>
+            </be_nl_settings>
+            <be_fr_settings>
+                <be_fr_enable>0</be_fr_enable>
+            </be_fr_settings>
             <pl_settings>
                 <pl_enable>0</pl_enable>
             </pl_settings>

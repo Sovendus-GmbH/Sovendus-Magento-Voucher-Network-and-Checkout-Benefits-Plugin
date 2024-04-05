@@ -20,9 +20,13 @@ class Config
     const NL_TRAFFIC_SOURCE_NUMBER = 'sovendusvouchernetwork/nl_settings/nl_traffic_source_number';
     const NL_TRAFFIC_MEDIUM_NUMBER = 'sovendusvouchernetwork/nl_settings/nl_traffic_medium_number';
 
-    const CH_ENABLE = 'sovendusvouchernetwork/ch_settings/ch_enable';
-    const CH_TRAFFIC_SOURCE_NUMBER = 'sovendusvouchernetwork/ch_settings/ch_traffic_source_number';
-    const CH_TRAFFIC_MEDIUM_NUMBER = 'sovendusvouchernetwork/ch_settings/ch_traffic_medium_number';
+    const CH_DE_ENABLE = 'sovendusvouchernetwork/ch_de_settings/ch_de_enable';
+    const CH_DE_TRAFFIC_SOURCE_NUMBER = 'sovendusvouchernetwork/ch_de_settings/ch_de_traffic_source_number';
+    const CH_DE_TRAFFIC_MEDIUM_NUMBER = 'sovendusvouchernetwork/ch_de_settings/ch_de_traffic_medium_number';
+
+    const CH_FR_ENABLE = 'sovendusvouchernetwork/ch_fr_settings/ch_fr_enable';
+    const CH_FR_TRAFFIC_SOURCE_NUMBER = 'sovendusvouchernetwork/ch_fr_settings/ch_fr_traffic_source_number';
+    const CH_FR_TRAFFIC_MEDIUM_NUMBER = 'sovendusvouchernetwork/ch_fr_settings/ch_fr_traffic_medium_number';
 
     const FR_ENABLE = 'sovendusvouchernetwork/fr_settings/fr_enable';
     const FR_TRAFFIC_SOURCE_NUMBER = 'sovendusvouchernetwork/fr_settings/fr_traffic_source_number';
@@ -52,9 +56,13 @@ class Config
     const ES_TRAFFIC_SOURCE_NUMBER = 'sovendusvouchernetwork/es_settings/es_traffic_source_number';
     const ES_TRAFFIC_MEDIUM_NUMBER = 'sovendusvouchernetwork/es_settings/es_traffic_medium_number';
 
-    const BE_ENABLE = 'sovendusvouchernetwork/be_settings/be_enable';
-    const BE_TRAFFIC_SOURCE_NUMBER = 'sovendusvouchernetwork/be_settings/be_traffic_source_number';
-    const BE_TRAFFIC_MEDIUM_NUMBER = 'sovendusvouchernetwork/be_settings/be_traffic_medium_number';
+    const BE_NL_ENABLE = 'sovendusvouchernetwork/be_nl_settings/be_nl_enable';
+    const BE_NL_TRAFFIC_SOURCE_NUMBER = 'sovendusvouchernetwork/be_nl_settings/be_nl_traffic_source_number';
+    const BE_NL_TRAFFIC_MEDIUM_NUMBER = 'sovendusvouchernetwork/be_nl_settings/be_nl_traffic_medium_number';
+
+    const BE_FR_ENABLE = 'sovendusvouchernetwork/be_fr_settings/be_fr_enable';
+    const BE_FR_TRAFFIC_SOURCE_NUMBER = 'sovendusvouchernetwork/be_fr_settings/be_fr_traffic_source_number';
+    const BE_FR_TRAFFIC_MEDIUM_NUMBER = 'sovendusvouchernetwork/be_fr_settings/be_fr_traffic_medium_number';
 
     const PL_ENABLE = 'sovendusvouchernetwork/pl_settings/pl_enable';
     const PL_TRAFFIC_SOURCE_NUMBER = 'sovendusvouchernetwork/pl_settings/pl_traffic_source_number';
@@ -116,9 +124,18 @@ class Config
                 );
             case "CH":
                 return array(
-                    $this->getConfig(self::CH_ENABLE, $storeCode),
-                    (int) $this->getConfig(self::CH_TRAFFIC_SOURCE_NUMBER, $storeCode),
-                    (int) $this->getConfig(self::CH_TRAFFIC_MEDIUM_NUMBER, $storeCode),
+                    array(
+                        "de" => $this->getConfig(self::CH_DE_ENABLE, $storeCode),
+                        "fr" => $this->getConfig(self::CH_FR_ENABLE, $storeCode)
+                    ),
+                    array(
+                        "de" => (int) $this->getConfig(self::CH_DE_TRAFFIC_SOURCE_NUMBER, $storeCode),
+                        "fr" => (int) $this->getConfig(self::CH_FR_TRAFFIC_SOURCE_NUMBER, $storeCode)
+                    ),
+                    array(
+                        "de" => (int) $this->getConfig(self::CH_DE_TRAFFIC_MEDIUM_NUMBER, $storeCode),
+                        "fr" => (int) $this->getConfig(self::CH_FR_TRAFFIC_MEDIUM_NUMBER, $storeCode)
+                    ),
 
                 );
             case "FR":
@@ -172,9 +189,18 @@ class Config
                 );
             case "BE":
                 return array(
-                    $this->getConfig(self::BE_ENABLE, $storeCode),
-                    (int) $this->getConfig(self::BE_TRAFFIC_SOURCE_NUMBER, $storeCode),
-                    (int) $this->getConfig(self::BE_TRAFFIC_MEDIUM_NUMBER, $storeCode),
+                    array(
+                        "nl" => $this->getConfig(self::BE_NL_ENABLE, $storeCode),
+                        "fr" => $this->getConfig(self::BE_FR_ENABLE, $storeCode)
+                    ),
+                    array(
+                        "nl" => (int) $this->getConfig(self::BE_NL_TRAFFIC_SOURCE_NUMBER, $storeCode),
+                        "fr" => (int) $this->getConfig(self::BE_FR_TRAFFIC_SOURCE_NUMBER, $storeCode)
+                    ),
+                    array(
+                        "nl" => (int) $this->getConfig(self::BE_NL_TRAFFIC_MEDIUM_NUMBER, $storeCode),
+                        "fr" => (int) $this->getConfig(self::BE_FR_TRAFFIC_MEDIUM_NUMBER, $storeCode)
+                    ),
 
                 );
             case "PL":

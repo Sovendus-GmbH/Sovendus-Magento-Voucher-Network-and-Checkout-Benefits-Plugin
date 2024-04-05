@@ -13,33 +13,56 @@ $viewModel = $block->getData('view_model');
         echo <<<EOD
             <div id="sovendus-container-1"></div>
             <script>
-                window.sovIframes = window.sovIframes || [];
-                window.sovIframes.push({
-                    trafficSourceNumber: $viewModel->trafficSourceNumber,
-                    trafficMediumNumber: $viewModel->trafficMediumNumber,
-                    iframeContainerId: 'sovendus-container-1',
-                    timestamp: '$viewModel->timestamp',
-                    sessionId: '$viewModel->sessionId',
-                    orderId: '$viewModel->orderId',
-                    orderValue: '$viewModel->orderValue',
-                    orderCurrency: '$viewModel->orderCurrency',
-                    usedCouponCode: '$viewModel->usedCouponCode',
-                    integrationType: "magento-1.0.2"
-                });
-                window.sovConsumer = {
-                    consumerSalutation: '$viewModel->consumerSalutation',
-                    consumerFirstName: '$viewModel->consumerFirstName',
-                    consumerLastName: '$viewModel->consumerLastName',
-                    consumerEmail: '$viewModel->consumerEmail',
-                    consumerPhone : '$viewModel->consumerPhone',
-                    consumerStreet: '$viewModel->consumerStreet',
-                    consumerStreetNumber: '$viewModel->consumerStreetNumber',
-                    consumerZipcode: '$viewModel->consumerZipcode',
-                    consumerCity: '$viewModel->consumerCity',
-                    consumerCountry: '$viewModel->consumerCountry',
+                let isActive = false;
+                let trafficSourceNumber = "";
+                let trafficMediumNumber = "";
+                const multiLangCountries = ["CH", "BE"]
+                if (multiLangCountries.includes("$viewModel->consumerCountry")){
+                    const lang = document.documentElement.lang.split("-")[0];
+                    isActive = JSON.parse('$viewModel->enabled')[lang];
+                    trafficSourceNumber = JSON.parse('$viewModel->trafficSourceNumber')[lang];
+                    trafficMediumNumber = JSON.parse('$viewModel->trafficMediumNumber')[lang];
+                } else {
+                    trafficSourceNumber = '$viewModel->trafficSourceNumber';
+                    trafficMediumNumber = '$viewModel->trafficMediumNumber';
+                    isActive = true;
+                }
+                if (isActive && Number(trafficSourceNumber) > 0 && Number(trafficMediumNumber) > 0){
+                    window.sovIframes = window.sovIframes || [];
+                    window.sovIframes.push({
+                        trafficSourceNumber: trafficSourceNumber,
+                        trafficMediumNumber: trafficMediumNumber,
+                        iframeContainerId: 'sovendus-container-1',
+                        timestamp: '$viewModel->timestamp',
+                        sessionId: '$viewModel->sessionId',
+                        orderId: '$viewModel->orderId',
+                        orderValue: '$viewModel->orderValue',
+                        orderCurrency: '$viewModel->orderCurrency',
+                        usedCouponCode: '$viewModel->usedCouponCode',
+                        integrationType: "magento-1.0.3"
+                    });
+                    window.sovConsumer = {
+                        consumerSalutation: '$viewModel->consumerSalutation',
+                        consumerFirstName: '$viewModel->consumerFirstName',
+                        consumerLastName: '$viewModel->consumerLastName',
+                        consumerEmail: '$viewModel->consumerEmail',
+                        consumerPhone : '$viewModel->consumerPhone',
+                        consumerStreet: '$viewModel->consumerStreet',
+                        consumerStreetNumber: '$viewModel->consumerStreetNumber',
+                        consumerZipcode: '$viewModel->consumerZipcode',
+                        consumerCity: '$viewModel->consumerCity',
+                        consumerCountry: '$viewModel->consumerCountry',
+                    };
+                    var script = document.createElement("script");
+                    script.type = "text/javascript";
+                    script.async = true;
+                    script.src =
+                        window.location.protocol +
+                        "//api.sovendus.com/sovabo/common/js/flexibleIframe.js";
+                    script.setAttribute('data-usercentrics', 'Sovendus');
+                    document.body.appendChild(script);
                 };
             </script>
-            <script type="text/javascript" src="https://api.sovendus.com/sovabo/common/js/flexibleIframe.js" async=true></script>
         EOD;
 
     }

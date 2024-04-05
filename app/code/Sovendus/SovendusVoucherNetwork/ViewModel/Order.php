@@ -29,6 +29,7 @@ class Order implements ArgumentInterface
 
 
     public $isActive;
+    public $enabled;
     public $orderId;
     public $trafficSourceNumber;
     public $trafficMediumNumber;
@@ -70,9 +71,12 @@ class Order implements ArgumentInterface
         } else if (isset($consumerBData["country_id"])) {
             $this->consumerCountry = $consumerBData["country_id"];
         }
-        list($enabled, $this->trafficSourceNumber, $this->trafficMediumNumber) = $this->config->getSovConfig($this->consumerCountry);
-        $this->isActive = $enabled && $this->trafficSourceNumber && $this->trafficMediumNumber;
+        list($this->enabled, $this->trafficSourceNumber, $this->trafficMediumNumber) = $this->config->getSovConfig($this->consumerCountry);
+        $this->isActive = $this->enabled && $this->trafficSourceNumber && $this->trafficMediumNumber;
         if ($this->isActive) {
+            $this->enabled = json_encode($this->enabled);
+            $this->trafficSourceNumber = json_encode($this->trafficSourceNumber);
+            $this->trafficMediumNumber = json_encode($this->trafficMediumNumber);
             $this->timestamp = time();
             $grosValue = (float) $order->getGrandTotal();
             $taxValue = (float) $order->getBaseTaxAmount();

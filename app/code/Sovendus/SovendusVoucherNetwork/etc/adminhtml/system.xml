@@ -57,19 +57,35 @@
                     <comment/>
                 </field>
             </group>
-            <group id="ch_settings" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
-                <label>Switzerland Settings</label>
-                <field id="ch_enable" type="select" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
-                    <label>Enable Switzerland</label>
+            <group id="ch_de_settings" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                <label>Switzerland German Settings</label>
+                <field id="ch_de_enable" type="select" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Enable Switzerland German</label>
                     <comment/>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
-                <field id="ch_traffic_source_number" type="text" sortOrder="20" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
-                    <label>Switzerland Traffic Source Number</label>
+                <field id="ch_de_traffic_source_number" type="text" sortOrder="20" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Switzerland German Traffic Source Number</label>
                     <comment/>
                 </field>
-                <field id="ch_traffic_medium_number" type="text" sortOrder="30" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
-                    <label>Switzerland Traffic Medium Number</label>
+                <field id="ch_de_traffic_medium_number" type="text" sortOrder="30" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Switzerland German Traffic Medium Number</label>
+                    <comment/>
+                </field>
+            </group>
+            <group id="ch_fr_settings" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                <label>Switzerland French Settings</label>
+                <field id="ch_fr_enable" type="select" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Enable Switzerland French</label>
+                    <comment/>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="ch_fr_traffic_source_number" type="text" sortOrder="20" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Switzerland French Traffic Source Number</label>
+                    <comment/>
+                </field>
+                <field id="ch_fr_traffic_medium_number" type="text" sortOrder="30" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Switzerland French Traffic Medium Number</label>
                     <comment/>
                 </field>
             </group>
@@ -185,19 +201,35 @@
                     <comment/>
                 </field>
             </group>
-            <group id="be_settings" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
-                <label>Belgium Settings</label>
-                <field id="be_enable" type="select" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
-                    <label>Enable Belgium</label>
+            <group id="be_nl_settings" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                <label>Belgium Dutch Settings</label>
+                <field id="be_nl_enable" type="select" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Enable Belgium Dutch</label>
                     <comment/>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
-                <field id="be_traffic_source_number" type="text" sortOrder="20" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
-                    <label>Belgium Traffic Source Number</label>
+                <field id="be_nl_traffic_source_number" type="text" sortOrder="20" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Belgium Dutch Traffic Source Number</label>
                     <comment/>
                 </field>
-                <field id="be_traffic_medium_number" type="text" sortOrder="30" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
-                    <label>Belgium Traffic Medium Number</label>
+                <field id="be_nl_traffic_medium_number" type="text" sortOrder="30" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Belgium Dutch Traffic Medium Number</label>
+                    <comment/>
+                </field>
+            </group>
+            <group id="be_fr_settings" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                <label>Belgium French Settings</label>
+                <field id="be_fr_enable" type="select" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Enable Belgium French</label>
+                    <comment/>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="be_fr_traffic_source_number" type="text" sortOrder="20" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Belgium French Traffic Source Number</label>
+                    <comment/>
+                </field>
+                <field id="be_fr_traffic_medium_number" type="text" sortOrder="30" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Belgium French Traffic Medium Number</label>
                     <comment/>
                 </field>
             </group>
