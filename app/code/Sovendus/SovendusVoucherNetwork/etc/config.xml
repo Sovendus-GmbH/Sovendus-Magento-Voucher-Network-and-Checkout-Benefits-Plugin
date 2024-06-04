@@ -17,6 +17,9 @@
             <ch_fr_settings>
                 <ch_fr_enable>0</ch_fr_enable>
             </ch_fr_settings>
+            <ch_it_settings>
+                <ch_it_enable>0</ch_it_enable>
+            </ch_it_settings>
             <fr_settings>
                 <fr_enable>0</fr_enable>
             </fr_settings>
@@ -47,6 +50,9 @@
             <pl_settings>
                 <pl_enable>0</pl_enable>
             </pl_settings>
+            <no_settings>
+                <no_enable>0</no_enable>
+            </no_settings>
         </sovendusvouchernetwork>
     </default>
 </config>

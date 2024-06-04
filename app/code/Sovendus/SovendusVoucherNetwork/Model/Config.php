@@ -28,6 +28,10 @@ class Config
     const CH_FR_TRAFFIC_SOURCE_NUMBER = 'sovendusvouchernetwork/ch_fr_settings/ch_fr_traffic_source_number';
     const CH_FR_TRAFFIC_MEDIUM_NUMBER = 'sovendusvouchernetwork/ch_fr_settings/ch_fr_traffic_medium_number';
 
+    const CH_IT_ENABLE = 'sovendusvouchernetwork/ch_it_settings/ch_it_enable';
+    const CH_IT_TRAFFIC_SOURCE_NUMBER = 'sovendusvouchernetwork/ch_it_settings/ch_it_traffic_source_number';
+    const CH_IT_TRAFFIC_MEDIUM_NUMBER = 'sovendusvouchernetwork/ch_it_settings/ch_it_traffic_medium_number';
+
     const FR_ENABLE = 'sovendusvouchernetwork/fr_settings/fr_enable';
     const FR_TRAFFIC_SOURCE_NUMBER = 'sovendusvouchernetwork/fr_settings/fr_traffic_source_number';
     const FR_TRAFFIC_MEDIUM_NUMBER = 'sovendusvouchernetwork/fr_settings/fr_traffic_medium_number';
@@ -67,6 +71,10 @@ class Config
     const PL_ENABLE = 'sovendusvouchernetwork/pl_settings/pl_enable';
     const PL_TRAFFIC_SOURCE_NUMBER = 'sovendusvouchernetwork/pl_settings/pl_traffic_source_number';
     const PL_TRAFFIC_MEDIUM_NUMBER = 'sovendusvouchernetwork/pl_settings/pl_traffic_medium_number';
+
+    const NO_ENABLE = 'sovendusvouchernetwork/no_settings/no_enable';
+    const NO_TRAFFIC_SOURCE_NUMBER = 'sovendusvouchernetwork/no_settings/no_traffic_source_number';
+    const NO_TRAFFIC_MEDIUM_NUMBER = 'sovendusvouchernetwork/no_settings/no_traffic_medium_number';
 
     /**
      * @var ScopeConfigInterface
@@ -126,15 +134,18 @@ class Config
                 return array(
                     array(
                         "de" => $this->getConfig(self::CH_DE_ENABLE, $storeCode),
-                        "fr" => $this->getConfig(self::CH_FR_ENABLE, $storeCode)
+                        "fr" => $this->getConfig(self::CH_FR_ENABLE, $storeCode),
+                        "it" => $this->getConfig(self::CH_IT_ENABLE, $storeCode),
                     ),
                     array(
                         "de" => (int) $this->getConfig(self::CH_DE_TRAFFIC_SOURCE_NUMBER, $storeCode),
-                        "fr" => (int) $this->getConfig(self::CH_FR_TRAFFIC_SOURCE_NUMBER, $storeCode)
+                        "fr" => (int) $this->getConfig(self::CH_FR_TRAFFIC_SOURCE_NUMBER, $storeCode),
+                        "it" => (int) $this->getConfig(self::CH_IT_TRAFFIC_SOURCE_NUMBER, $storeCode),
                     ),
                     array(
                         "de" => (int) $this->getConfig(self::CH_DE_TRAFFIC_MEDIUM_NUMBER, $storeCode),
-                        "fr" => (int) $this->getConfig(self::CH_FR_TRAFFIC_MEDIUM_NUMBER, $storeCode)
+                        "fr" => (int) $this->getConfig(self::CH_FR_TRAFFIC_MEDIUM_NUMBER, $storeCode),
+                        "it" => (int) $this->getConfig(self::CH_IT_TRAFFIC_MEDIUM_NUMBER, $storeCode),
                     ),
 
                 );
@@ -208,6 +219,13 @@ class Config
                     $this->getConfig(self::PL_ENABLE, $storeCode),
                     (int) $this->getConfig(self::PL_TRAFFIC_SOURCE_NUMBER, $storeCode),
                     (int) $this->getConfig(self::PL_TRAFFIC_MEDIUM_NUMBER, $storeCode),
+
+                );
+            case "NO":
+                return array(
+                    $this->getConfig(self::NO_ENABLE, $storeCode),
+                    (int) $this->getConfig(self::NO_TRAFFIC_SOURCE_NUMBER, $storeCode),
+                    (int) $this->getConfig(self::NO_TRAFFIC_MEDIUM_NUMBER, $storeCode),
 
                 );
             default:

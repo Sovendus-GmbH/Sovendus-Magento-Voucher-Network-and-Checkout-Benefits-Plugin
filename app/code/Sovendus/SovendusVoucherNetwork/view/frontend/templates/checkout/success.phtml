@@ -1,6 +1,7 @@
 <?php
 use Sovendus\SovendusVoucherNetwork\ViewModel\Order;
 use Magento\Checkout\Block\Onepage\Success;
+
 ?>
 <?php /** @var $block Success */ ?>
 <?php
@@ -8,9 +9,9 @@ use Magento\Checkout\Block\Onepage\Success;
 $viewModel = $block->getData('view_model');
 ?>
 <?php
-    $viewModel->initializeSovendusData($block);
-    if ($viewModel->isActive){
-        echo <<<EOD
+$viewModel->initializeSovendusData($block);
+if ($viewModel->isActive) {
+    echo <<<EOD
             <div id="sovendus-container-1"></div>
             <script>
                 let isActive = false;
@@ -65,6 +66,6 @@ $viewModel = $block->getData('view_model');
             </script>
         EOD;
 
-    }
+}
 
 ?>
