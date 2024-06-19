@@ -281,6 +281,38 @@
                     <comment/>
                 </field>
             </group>
+            <group id="fi_settings" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                <label>Finnland Settings</label>
+                <field id="fi_enable" type="select" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Enable Finnland</label>
+                    <comment/>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="fi_traffic_source_number" type="text" sortOrder="20" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Finnland Traffic Source Number</label>
+                    <comment/>
+                </field>
+                <field id="fi_traffic_medium_number" type="text" sortOrder="30" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Finnland Traffic Medium Number</label>
+                    <comment/>
+                </field>
+            </group>
+            <group id="pt_settings" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                <label>Portugal Settings</label>
+                <field id="pt_enable" type="select" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Enable Portugal</label>
+                    <comment/>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="pt_traffic_source_number" type="text" sortOrder="20" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Portugal Traffic Source Number</label>
+                    <comment/>
+                </field>
+                <field id="pt_traffic_medium_number" type="text" sortOrder="30" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Portugal Traffic Medium Number</label>
+                    <comment/>
+                </field>
+            </group>
         </section>
     </system>
 </config>

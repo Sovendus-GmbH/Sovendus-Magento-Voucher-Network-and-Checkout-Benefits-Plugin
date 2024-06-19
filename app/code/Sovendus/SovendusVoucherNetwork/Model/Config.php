@@ -76,6 +76,14 @@ class Config
     const NO_TRAFFIC_SOURCE_NUMBER = 'sovendusvouchernetwork/no_settings/no_traffic_source_number';
     const NO_TRAFFIC_MEDIUM_NUMBER = 'sovendusvouchernetwork/no_settings/no_traffic_medium_number';
 
+    const FI_ENABLE = 'sovendusvouchernetwork/fi_settings/fi_enable';
+    const FI_TRAFFIC_SOURCE_NUMBER = 'sovendusvouchernetwork/fi_settings/fi_traffic_source_number';
+    const FI_TRAFFIC_MEDIUM_NUMBER = 'sovendusvouchernetwork/fi_settings/fi_traffic_medium_number';
+
+    const PT_ENABLE = 'sovendusvouchernetwork/pt_settings/pt_enable';
+    const PT_TRAFFIC_SOURCE_NUMBER = 'sovendusvouchernetwork/pt_settings/pt_traffic_source_number';
+    const PT_TRAFFIC_MEDIUM_NUMBER = 'sovendusvouchernetwork/pt_settings/pt_traffic_medium_number';
+
     /**
      * @var ScopeConfigInterface
      */
@@ -226,6 +234,20 @@ class Config
                     $this->getConfig(self::NO_ENABLE, $storeCode),
                     (int) $this->getConfig(self::NO_TRAFFIC_SOURCE_NUMBER, $storeCode),
                     (int) $this->getConfig(self::NO_TRAFFIC_MEDIUM_NUMBER, $storeCode),
+
+                );
+            case "FI":
+                return array(
+                    $this->getConfig(self::FI_ENABLE, $storeCode),
+                    (int) $this->getConfig(self::FI_TRAFFIC_SOURCE_NUMBER, $storeCode),
+                    (int) $this->getConfig(self::FI_TRAFFIC_MEDIUM_NUMBER, $storeCode),
+
+                );
+            case "PT":
+                return array(
+                    $this->getConfig(self::PT_ENABLE, $storeCode),
+                    (int) $this->getConfig(self::PT_TRAFFIC_SOURCE_NUMBER, $storeCode),
+                    (int) $this->getConfig(self::PT_TRAFFIC_MEDIUM_NUMBER, $storeCode),
 
                 );
             default:

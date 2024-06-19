@@ -53,6 +53,12 @@
             <no_settings>
                 <no_enable>0</no_enable>
             </no_settings>
+            <fi_settings>
+                <fi_enable>0</fi_enable>
+            </fi_settings>
+            <pt_settings>
+                <pt_enable>0</pt_enable>
+            </pt_settings>
         </sovendusvouchernetwork>
     </default>
 </config>
