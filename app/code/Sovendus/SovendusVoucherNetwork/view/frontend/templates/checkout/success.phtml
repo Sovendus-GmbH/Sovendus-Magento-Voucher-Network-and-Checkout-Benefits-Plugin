@@ -69,3 +69,9 @@ if ($viewModel->isActive) {
 }
 
 ?>
+
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+?>
+<!-- Include the default template -->
+<?php echo $block->getLayout()->createBlock('Magento\Framework\View\Element\Template')->setTemplate('Magento_Checkout::success.phtml')->toHtml(); ?>

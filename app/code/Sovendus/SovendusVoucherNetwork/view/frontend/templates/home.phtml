@@ -1,3 +1,8 @@
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+?>
+<?php echo $block->getLayout()->createBlock('Magento\Framework\View\Element\Template')->setTemplate('Magento_Cms::default/home.phtml')->toHtml(); ?>
+
 <script>
   var hostName = window.location.hostname.split(".");
   if (
