@@ -48,24 +48,28 @@ class Order implements ArgumentInterface
     public $consumerZipcode;
     public $consumerCity;
     public $consumerCountry;
+    private \Magento\Checkout\Model\Session $checkoutSession;
 
     public function __construct(
         AddressConfig $addressConfig,
         ScopeConfigInterface $scopeConfig,
         FilterProvider $filterProvider,
-        Config $config
+        Config $config,
+        \Magento\Checkout\Model\Session $checkoutSession
     ) {
         $this->addressConfig = $addressConfig;
         $this->scopeConfig = $scopeConfig;
         $this->filterProvider = $filterProvider;
         $this->config = $config;
+        $this->checkoutSession = $checkoutSession;
     }
 
     public function initializeSovendusData($block)
     {
-        $order = $this->getorder($block);
+        $order = $this->getorder();
         $consumerSData = $order->getShippingAddress()->getData();
         $consumerBData = $order->getBillingAddress()->getData();
+        $this->orderId = $order->getIncrementId();
         if (isset($consumerSData["country_id"])) {
             $this->consumerCountry = $consumerSData["country_id"];
         } else if (isset($consumerBData["country_id"])) {
@@ -117,11 +121,9 @@ class Order implements ArgumentInterface
             }
         }
     }
-    function getorder($block)
+    function getorder()
     {
-        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-        $this->orderId = $block->getOrderId();
-        return $objectManager->create("Magento\Sales\Model\Order")->loadByIncrementId($this->orderId);
+        return $this->checkoutSession->getLastRealOrder();
     }
     function splitStreetAndStreetNumber(string $street)
     {
