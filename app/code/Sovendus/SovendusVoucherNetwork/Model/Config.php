@@ -111,7 +111,7 @@ class Config
         switch ($countryCode) {
             case "DE":
                 return array(
-                    $this->getConfig(self::DE_ENABLE, $storeCode),
+                    $this->getConfig(self::DE_ENABLE, scopeCode: $storeCode),
                     (int) $this->getConfig(self::DE_TRAFFIC_SOURCE_NUMBER, $storeCode),
                     (int) $this->getConfig(self::DE_TRAFFIC_MEDIUM_NUMBER, $storeCode),
 
