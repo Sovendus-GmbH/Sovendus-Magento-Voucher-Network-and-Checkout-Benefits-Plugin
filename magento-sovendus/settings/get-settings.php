@@ -68,9 +68,11 @@ class Magento_Sovendus_Helper
 
     private function get_country_settings($countryCode, $lang)
     {
-        $sovendusActive = $this->getConfig("{$countryCode}_enable");
-        $trafficSourceNumber = (int) $this->getConfig("{$countryCode}_traffic_source_number");
-        $trafficMediumNumber = (int) $this->getConfig("{$countryCode}_traffic_medium_number");
+        $lowerCaseCountry = strtolower($countryCode);
+
+        $sovendusActive = $this->getConfig("sovendusvouchernetwork/{$lowerCaseCountry}_settings/{$lowerCaseCountry}_enable");
+        $trafficSourceNumber = (int) $this->getConfig("sovendusvouchernetwork/{$lowerCaseCountry}_settings/{$lowerCaseCountry}_traffic_source_number");
+        $trafficMediumNumber = (int) $this->getConfig("sovendusvouchernetwork/{$lowerCaseCountry}_settings/{$lowerCaseCountry}_traffic_source_number");
         return [
             $lang => new VoucherNetworkLanguage(
                 isEnabled: $sovendusActive === "yes" && $trafficSourceNumber && $trafficMediumNumber ? true : false,
@@ -84,10 +86,12 @@ class Magento_Sovendus_Helper
     {
         $languageSettings = [];
         foreach ($langs as $lang) {
+            $lowerCaseLang = strtolower($lang);
+            $lowerCaseCountry = strtolower($countryCode);
             $languageSettings[$lang] = new VoucherNetworkLanguage(
-                isEnabled: $this->getConfig("{$countryCode}_{$lang}_enable"),
-                trafficSourceNumber: (int) $this->getConfig("{$countryCode}_{$lang}_traffic_source_number"),
-                trafficMediumNumber: (int) $this->getConfig("{$countryCode}_{$lang}_traffic_medium_number"),
+                isEnabled: $this->getConfig("sovendusvouchernetwork/{$lowerCaseCountry}_{$lowerCaseLang}_settings/{$lowerCaseCountry}_{$lowerCaseLang}_enable"),
+                trafficSourceNumber: (int) $this->getConfig("sovendusvouchernetwork/{$lowerCaseCountry}_{$lowerCaseLang}_settings/{$lowerCaseCountry}_{$lowerCaseLang}_traffic_source_number"),
+                trafficMediumNumber: (int) $this->getConfig("sovendusvouchernetwork/{$lowerCaseCountry}_{$lowerCaseLang}_settings/{$lowerCaseCountry}_{$lowerCaseLang}_traffic_medium_number"),
             );
         }
         return $languageSettings;
