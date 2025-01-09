@@ -75,7 +75,7 @@ class Magento_Sovendus_Helper
         $trafficMediumNumber = (int) $this->getConfig("sovendusvouchernetwork/{$lowerCaseCountry}_settings/{$lowerCaseCountry}_traffic_source_number");
         return [
             $lang => new VoucherNetworkLanguage(
-                isEnabled: $sovendusActive === "yes" && $trafficSourceNumber && $trafficMediumNumber ? true : false,
+                isEnabled: $sovendusActive === 0 && $trafficSourceNumber && $trafficMediumNumber ? true : false,
                 trafficSourceNumber: $trafficSourceNumber,
                 trafficMediumNumber: $trafficMediumNumber,
             )
@@ -88,10 +88,14 @@ class Magento_Sovendus_Helper
         foreach ($langs as $lang) {
             $lowerCaseLang = strtolower($lang);
             $lowerCaseCountry = strtolower($countryCode);
+            $trafficSourceNumber = (int) $this->getConfig("sovendusvouchernetwork/{$lowerCaseCountry}_{$lowerCaseLang}_settings/{$lowerCaseCountry}_{$lowerCaseLang}_traffic_source_number");
+            $trafficMediumNumber = (int) $this->getConfig("sovendusvouchernetwork/{$lowerCaseCountry}_{$lowerCaseLang}_settings/{$lowerCaseCountry}_{$lowerCaseLang}_traffic_medium_number");
+            $isEnabled = $this->getConfig("sovendusvouchernetwork/{$lowerCaseCountry}_{$lowerCaseLang}_settings/{$lowerCaseCountry}_{$lowerCaseLang}_enable")
+                === 0 && $trafficSourceNumber && $trafficMediumNumber ? true : false;
             $languageSettings[$lang] = new VoucherNetworkLanguage(
-                isEnabled: $this->getConfig("sovendusvouchernetwork/{$lowerCaseCountry}_{$lowerCaseLang}_settings/{$lowerCaseCountry}_{$lowerCaseLang}_enable"),
-                trafficSourceNumber: (int) $this->getConfig("sovendusvouchernetwork/{$lowerCaseCountry}_{$lowerCaseLang}_settings/{$lowerCaseCountry}_{$lowerCaseLang}_traffic_source_number"),
-                trafficMediumNumber: (int) $this->getConfig("sovendusvouchernetwork/{$lowerCaseCountry}_{$lowerCaseLang}_settings/{$lowerCaseCountry}_{$lowerCaseLang}_traffic_medium_number"),
+                isEnabled: $isEnabled,
+                trafficSourceNumber: $trafficSourceNumber,
+                trafficMediumNumber: $trafficMediumNumber,
             );
         }
         return $languageSettings;
