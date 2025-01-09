@@ -30,7 +30,7 @@ class Magento_Sovendus_Helper
 
     public function get_settings(string|null $countryCode): Sovendus_App_Settings
     {
-        $settingsJson = $this->getConfig('sovendus/settings');
+        $settingsJson = $this->getConfig("sovendusvouchernetwork/{$countryCode}_settings");
         if ($settingsJson) {
             return Sovendus_App_Settings::fromJson($settingsJson);
         } else {
@@ -68,12 +68,12 @@ class Magento_Sovendus_Helper
 
     private function get_country_settings($countryCode, $lang)
     {
-        $sovendusActive = $this->getConfig("{$countryCode}_sovendus_activated");
-        $trafficSourceNumber = (int) $this->getConfig("{$countryCode}_sovendus_trafficSourceNumber");
-        $trafficMediumNumber = (int) $this->getConfig("{$countryCode}_sovendus_trafficMediumNumber");
+        $sovendusActive = $this->getConfig("{$countryCode}_enable");
+        $trafficSourceNumber = (int) $this->getConfig("{$countryCode}_traffic_source_number");
+        $trafficMediumNumber = (int) $this->getConfig("{$countryCode}_traffic_medium_number");
         return [
             $lang => new VoucherNetworkLanguage(
-                enabled: $sovendusActive === "yes" && $trafficSourceNumber && $trafficMediumNumber ? true : false,
+                isEnabled: $sovendusActive === "yes" && $trafficSourceNumber && $trafficMediumNumber ? true : false,
                 trafficSourceNumber: $trafficSourceNumber,
                 trafficMediumNumber: $trafficMediumNumber,
             )
@@ -85,9 +85,9 @@ class Magento_Sovendus_Helper
         $languageSettings = [];
         foreach ($langs as $lang) {
             $languageSettings[$lang] = new VoucherNetworkLanguage(
-                enabled: $this->getConfig("{$lang}_{$countryCode}_sovendus_activated"),
-                trafficSourceNumber: (int) $this->getConfig("{$lang}_{$countryCode}_sovendus_trafficSourceNumber"),
-                trafficMediumNumber: (int) $this->getConfig("{$lang}_{$countryCode}_sovendus_trafficMediumNumber"),
+                isEnabled: $this->getConfig("{$countryCode}_{$lang}_enable"),
+                trafficSourceNumber: (int) $this->getConfig("{$countryCode}_{$lang}_traffic_source_number"),
+                trafficMediumNumber: (int) $this->getConfig("{$countryCode}_{$lang}_traffic_medium_number"),
             );
         }
         return $languageSettings;

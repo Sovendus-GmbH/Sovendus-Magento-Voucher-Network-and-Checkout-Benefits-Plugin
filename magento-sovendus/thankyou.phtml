@@ -1,0 +1,6 @@
+<?php
+/** @var \Sovendus\VoucherNetwork\Block\Checkout\ThankYou $block */
+$orderId = $block->getRequest()->getParam('order_id');
+if ($orderId) {
+    echo $block->setOrder($block->getOrder())->getThankYouHtml();
+}

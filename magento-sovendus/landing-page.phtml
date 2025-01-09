@@ -1,0 +1,10 @@
+<?php
+/** @var \Sovendus\VoucherNetwork\Block\LandingPage $block */
+$settings = $block->getSettings();
+echo $block->escapeHtml(
+    sovendus_landing_page(
+        settings: $settings,
+        pluginName: $block->getPluginName(),
+        pluginVersion: $block->getPluginVersion()
+    )
+);
