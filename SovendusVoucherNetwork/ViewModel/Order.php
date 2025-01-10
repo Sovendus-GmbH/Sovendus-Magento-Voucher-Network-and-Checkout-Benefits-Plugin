@@ -1,8 +1,8 @@
 <?php
 
-namespace Sovendus\SovendusVoucherNetwork\ViewModel;
+namespace Sovendus\SovendusApp\ViewModel;
 
-use Sovendus\SovendusVoucherNetwork\Model\Config;
+use Sovendus\SovendusApp\Model\Config;
 use Magento\Cms\Model\Template\FilterProvider;
 use Magento\Customer\Model\Address\Config as AddressConfig;
 use Magento\Framework\App\Config\ScopeConfigInterface;
@@ -136,5 +136,4 @@ class Order implements ArgumentInterface
             return array($street, "");
         }
     }
-
 }

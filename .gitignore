@@ -1,3 +1,6 @@
 dist
 node_modules
-SovendusVoucherNetwork/sovendus-plugins-commons/node_modules
+SovendusApp/sovendus-plugins-commons/node_modules
+
+SovendusApp/view/frontend/web/js
+SovendusApp/view/adminhtml/web/js

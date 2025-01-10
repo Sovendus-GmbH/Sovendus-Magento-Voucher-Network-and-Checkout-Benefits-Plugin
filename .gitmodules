@@ -1,3 +1,3 @@
-[submodule "SovendusVoucherNetwork/sovendus-plugins-commons"]
-	path = SovendusVoucherNetwork/sovendus-plugins-commons
+[submodule "SovendusApp/sovendus-plugins-commons"]
+	path = SovendusApp/sovendus-plugins-commons
 	url = https://github.com/Sovendus-GmbH/sovendus-plugins-commons

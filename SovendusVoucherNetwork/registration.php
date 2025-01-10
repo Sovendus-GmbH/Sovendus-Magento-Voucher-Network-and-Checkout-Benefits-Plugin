@@ -2,4 +2,4 @@
 
 use Magento\Framework\Component\ComponentRegistrar;
 
-ComponentRegistrar::register(ComponentRegistrar::MODULE, 'Sovendus_SovendusVoucherNetwork', __DIR__);
+ComponentRegistrar::register(ComponentRegistrar::MODULE, 'Sovendus_SovendusApp', __DIR__);

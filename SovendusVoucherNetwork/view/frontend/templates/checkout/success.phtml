@@ -1,5 +1,6 @@
 <?php
-use Sovendus\SovendusVoucherNetwork\ViewModel\Order;
+
+use Sovendus\SovendusApp\ViewModel\Order;
 use Magento\Checkout\Block\Onepage\Success;
 // /** @var $block Success */
 // /** @var $viewModel Order */
@@ -12,8 +13,7 @@ if ($viewModel->isActive) {
 
             </script>
         EOD;
-
 }
 ?>
 
-<script type="text/javascript" src="<?php echo $block->getViewFileUrl('Sovendus_SovendusVoucherNetwork::js/thankyou-page.js'); ?>"></script>
+<script type="text/javascript" src="<?php echo $block->getViewFileUrl('Sovendus_SovendusApp::js/thankyou-page.js'); ?>"></script>

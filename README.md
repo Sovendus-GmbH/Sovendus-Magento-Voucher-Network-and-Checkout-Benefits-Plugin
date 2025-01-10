@@ -11,7 +11,7 @@ coming soon...
 1. Download the latest version [from here](https://raw.githubusercontent.com/Sovendus-GmbH/Sovendus-Magento-Voucher-Network-and-Checkout-Benefits-Plugin/main/releases/sovendus-magento-latest.zip)
 2. Navigate to your magento root folder
 3. Unpack the downloaded module zip file into your magento root folder
-4. After you've unpacked it, the folder structer should look like this: yourMagentoRoot/app/code/Sovendus/SovendusVoucherNetwork
+4. After you've unpacked it, the folder structer should look like this: yourMagentoRoot/app/code/Sovendus/SovendusApp
 5. In your magento root folder, execute the following command, if you haven't already, this will prompt you to enter your [Adobe access keys](https://experienceleague.adobe.com/docs/commerce-operations/installation-guide/prerequisites/authentication-keys.html): \
    `composer update`
 6. In your magento root folder, execute the following command, to install the plugin: \
