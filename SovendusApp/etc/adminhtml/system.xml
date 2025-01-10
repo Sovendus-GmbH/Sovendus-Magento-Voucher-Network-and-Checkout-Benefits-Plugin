@@ -14,7 +14,7 @@
 				sovendus
 			</tab>
 			<resource>
-				Sovendus_SovendusApp::sovendusvouchernetwork_config
+				Sovendus_SovendusApp::sovendus_config
 			</resource>
 			<group id="general_settings" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
 				<label>

@@ -6,9 +6,11 @@ use Sovendus\SovendusApp\Api\ConfigInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\Config\Storage\WriterInterface;
 
+require_once "../sovendus-plugins-commons/settings/get-settings-helper.php";
+
 class Config implements ConfigInterface
 {
-    protected $settings_keys = new SettingsKeys(
+    protected $settings_keys = new \SettingsKeys(
         uses_lower_case: false,
         newSettingsKey: "sovendus_settings",
         active: "{countryCode}_sovendus_activated",

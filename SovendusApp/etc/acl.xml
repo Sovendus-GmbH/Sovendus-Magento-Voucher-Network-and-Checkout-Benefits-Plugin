@@ -6,7 +6,7 @@
 				<resource id="Magento_Backend::stores">
 					<resource id="Magento_Backend::stores_settings">
 						<resource id="Magento_Config::config">
-							<resource id="Sovendus_SovendusApp::sovendusvouchernetwork_config" title="Sovendus Voucher Network &amp; Checkout Benefits" translate="title" sortOrder="10" />
+							<resource id="Sovendus_SovendusApp::sovendus_config" title="Sovendus Voucher Network &amp; Checkout Benefits" translate="title" sortOrder="10" />
 						</resource>
 					</resource>
 				</resource>
