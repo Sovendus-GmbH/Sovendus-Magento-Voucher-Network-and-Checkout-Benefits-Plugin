@@ -5,7 +5,7 @@
     "private": true,
     "scripts": {
         "setup": "yarn install && cd SovendusVoucherNetwork/sovendus-plugins-commons && yarn install",
-        "build": "cd SovendusVoucherNetwork/sovendus-plugins-commons && yarn build && cd ../.. && yarn copy-build && yarn zip-builds",
+        "build": "cd SovendusVoucherNetwork/sovendus-plugins-commons && yarn build --dist ../view/adminhtml/web/js && yarn build --dist ../view/frontend/web/js && cd ../.. && yarn copy-build && yarn zip-builds",
         "copy-build": "mkdir -p dist && rsync -av --exclude 'sovendus-plugins-commons/node_modules' SovendusVoucherNetwork/ dist/SovendusVoucherNetwork/",
         "zip-builds": "zip-build dist -t releases/sovendus-magento-module-latest.zip",
         "lint": "eslint **/*.ts --no-ignore --fix"
