@@ -1,0 +1,30 @@
+{
+    "name": "sovendus_app_magento",
+    "version": "1.0.0",
+    "description": "Sovendus App Magento",
+    "private": true,
+    "scripts": {
+        "setup": "yarn install && cd SovendusVoucherNetwork/sovendus-plugins-commons && yarn install",
+        "build": "cd SovendusVoucherNetwork/sovendus-plugins-commons && yarn build && cd ../.. && yarn copy-build && yarn zip-builds",
+        "copy-build": "mkdir -p dist && rsync -av --exclude 'sovendus-plugins-commons/node_modules' SovendusVoucherNetwork/ dist/SovendusVoucherNetwork/",
+        "zip-builds": "zip-build dist -t releases/sovendus-magento-module-latest.zip",
+        "lint": "eslint **/*.ts --no-ignore --fix"
+    },
+    "dependencies": {
+        "@wordpress/api-fetch": "^7.15.1",
+        "react": "^18.0.0",
+        "react-dom": "^18.0.0"
+    },
+    "devDependencies": {
+        "@types/eslint": "9.6.1",
+        "@types/react": "^18.0.0",
+        "@types/react-dom": "^18.0.0",
+        "eslint": "8.57.0",
+        "eslint-config-prettier": "9.1.0",
+        "postcss": "^8.4.49",
+        "prettier-eslint": "^16.3.0",
+        "tailwindcss": "^3.4.17",
+        "typescript": "5.7.2",
+        "zip-build": "^1.8.0"
+    }
+}
