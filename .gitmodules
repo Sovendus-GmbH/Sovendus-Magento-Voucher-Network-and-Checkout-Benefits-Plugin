@@ -1,3 +1,4 @@
 [submodule "SovendusApp/sovendus-plugins-commons"]
 	path = SovendusApp/sovendus-plugins-commons
 	url = https://github.com/Sovendus-GmbH/sovendus-plugins-commons
+    active = true
