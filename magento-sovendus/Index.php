@@ -1,8 +1,8 @@
 <?php
-namespace Sovendus\VoucherNetwork\Controller\Index;
+namespace Sovendus\VoucherNetwork\Controller\Adminhtml\Settings;
 
-use Magento\Framework\App\Action\Action;
-use Magento\Framework\App\Action\Context;
+use Magento\Backend\App\Action;
+use Magento\Backend\App\Action\Context;
 use Magento\Framework\View\Result\PageFactory;
 
 class Index extends Action
@@ -19,6 +19,13 @@ class Index extends Action
 
     public function execute()
     {
-        return $this->resultPageFactory->create();
+        $resultPage = $this->resultPageFactory->create();
+        $resultPage->getConfig()->getTitle()->prepend(__('Sovendus Settings'));
+        return $resultPage;
+    }
+
+    protected function _isAllowed()
+    {
+        return $this->_authorization->isAllowed('Sovendus_VoucherNetwork::settings');
     }
 }

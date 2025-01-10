@@ -4,14 +4,19 @@ import ReactDOM from "react-dom";
 import type { SovendusFormDataType } from "../sovendus-plugins-commons/admin-frontend/sovendus-app-types";
 
 document.addEventListener("DOMContentLoaded", () => {
-  const currentSettings = sovendusSettings.settings as SovendusFormDataType;
-  const saveUrl = ajaxurl as string;
   const containerId = "sovendus-settings-container";
   const container = document.getElementById(containerId);
-  if (!container) {
-    console.error(`Container with id ${containerId} not found`);
+  const formKey =
+    document.querySelector<HTMLInputElement>('[name="form_key"]')?.value;
+
+  if (!container || !formKey) {
+    console.error("Required elements not found");
     return;
   }
+
+  const settings = JSON.parse(container.dataset.settings || "{}");
+  const saveUrl = container.dataset.saveUrl;
+
   const shadowRoot = container.attachShadow({ mode: "open" });
   const reactRoot = document.createElement("div");
   shadowRoot.appendChild(reactRoot);
@@ -19,31 +24,24 @@ document.addEventListener("DOMContentLoaded", () => {
   const handleSettingsUpdate = async (
     updatedSettings: SovendusFormDataType
   ): Promise<SovendusFormDataType> => {
-    console.log("Attempting to save settings...");
-
     try {
       const response = await fetch(saveUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "X-Requested-With": "XMLHttpRequest",
         },
         body: JSON.stringify({
-          action: "wc_sovendus_save_settings",
+          form_key: formKey,
           settings: updatedSettings,
         }),
       });
 
-      console.log("Response status:", response.status);
-      const responseText = await response.text();
-      console.log("Raw response:", responseText);
-
-      const data = JSON.parse(responseText);
+      const data = await response.json();
       if (data.success) {
-        console.log("Settings saved successfully");
         return updatedSettings;
       }
-
-      throw new Error(data.data || "Unknown server error");
+      throw new Error(data.message || "Save failed");
     } catch (error) {
       console.error("Save failed:", error);
       throw error;
@@ -53,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
   ReactDOM.render(
     React.createElement(SovendusSettings, {
       saveSettings: handleSettingsUpdate,
-      currentStoredSettings: currentSettings,
+      currentStoredSettings: settings,
     }),
     reactRoot
   );

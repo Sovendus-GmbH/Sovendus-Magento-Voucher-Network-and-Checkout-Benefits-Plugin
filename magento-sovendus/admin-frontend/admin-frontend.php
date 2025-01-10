@@ -1,35 +1,29 @@
 <?php
+namespace Sovendus\VoucherNetwork\Block\Adminhtml;
 
-require_once plugin_dir_path(file: __FILE__) . '../settings/get-settings.php';
+use Magento\Backend\Block\Template;
+use Sovendus\VoucherNetwork\Helper\Settings as SettingsHelper;
 
-class Magento_Sovendus_Settings
+class Settings extends Template
 {
-    public static function add_section($sections)
+    private $settingsHelper;
+
+    public function __construct(
+        Template\Context $context,
+        SettingsHelper $settingsHelper,
+        array $data = []
+    ) {
+        parent::__construct($context, $data);
+        $this->settingsHelper = $settingsHelper;
+    }
+
+    public function getSettingsJson(): string
     {
-        $sections['magentosovendus'] = __('Sovendus App', 'magento-sovendus');
-        return $sections;
+        return json_encode($this->settingsHelper->getSettings());
     }
 
-    public static function settings($settings, $current_section)
+    public function getSaveUrl(): string
     {
-        if ($current_section === 'wcsovendus') {
-            echo '<div id="sovendus-settings-container"></div>';
-            return [];
-        } else {
-            return $settings;
-        }
+        return $this->getUrl('sovendus/settings/save');
     }
-}
-
-function enqueue_sovendus_react_scripts($hook)
-{
-    if ($hook !== 'woocommerce_page_wc-settings') {
-        return;
-    }
-    wp_enqueue_script('frontend_react_loader', plugins_url('../dist/frontend_react_loader.js', __FILE__), ['react', 'react-dom'], null, true);
-
-    wp_localize_script('frontend_react_loader', 'sovendusSettings', [
-        'settings' => WC_Sovendus_Helper::get_settings(countryCode: null),
-        'ajaxurl' => admin_url('admin-ajax.php'),
-    ]);
 }
