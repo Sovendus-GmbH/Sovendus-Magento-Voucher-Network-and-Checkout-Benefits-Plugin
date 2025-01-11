@@ -5,7 +5,8 @@
     "private": true,
     "scripts": {
         "setup": "yarn install && cd SovendusApp/sovendus-plugins-commons && yarn install",
-        "build": "cd SovendusApp/sovendus-plugins-commons && yarn build -bp ../view/adminhtml/web/js -fp ../view/frontend/web/js && cd ../.. && yarn copy-build && yarn zip-builds",
+        "build:release": "yarn build && yarn copy-build && yarn zip-builds",
+        "build": "cd SovendusApp/sovendus-plugins-commons && yarn build -bp ../view/adminhtml/web/js -fp ../view/frontend/web/js && cd ../..",
         "copy-build": "mkdir -p dist && rsync -av --exclude 'sovendus-plugins-commons/node_modules' SovendusApp/ dist/SovendusApp/",
         "zip-builds": "zip-build dist -t releases/sovendus-magento-module-latest.zip",
         "lint": "eslint **/*.ts --no-ignore --fix"

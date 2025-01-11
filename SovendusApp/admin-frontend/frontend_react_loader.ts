@@ -3,19 +3,17 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { SovendusAppSettings } from "../sovendus-plugins-commons/settings/app-settings";
 
-document.addEventListener("DOMContentLoaded", async () => {
+async function loadSetting() {
   const settingsUrl = "/rest/V1/sovendus/config";
-  const containerId = "sovendus-settings-container";
+  const containerId = "container";
   const container = document.getElementById(containerId);
   if (!container) {
     console.error(`Container with id ${containerId} not found`);
     return;
   }
-  const shadowRoot = container.attachShadow({ mode: "open" });
-  const reactRoot = document.createElement("div");
-  shadowRoot.appendChild(reactRoot);
+  const reactRoot = createReactRoot(container);
 
-  const handleSettingsUpdate = async (
+  const saveSettings = async (
     updatedSettings: SovendusAppSettings
   ): Promise<SovendusAppSettings> => {
     console.log("Attempting to save settings...");
@@ -44,34 +42,62 @@ document.addEventListener("DOMContentLoaded", async () => {
       throw error;
     }
   };
+
   try {
-    const response = await fetch(settingsUrl);
-    const currentSettingsJson = await response.json();
-    const currentSettings = JSON.parse(currentSettingsJson);
-
-    console.log("Current settings:", typeof currentSettings, currentSettings);
-    if (typeof currentSettings !== "object") {
-      console.log("Current settings:", typeof currentSettings, currentSettings);
-      throw new Error("Invalid settings format received from server");
-    }
-
-    if (!currentSettings?.voucherNetwork) {
-      console.log("Current settings:", currentSettings);
-      throw new Error("Settings data is missing voucherNetwork properties");
-    }
-    if (!currentSettings?.optimize) {
-      console.log("Current settings:", currentSettings);
-      throw new Error("Settings data is missing optimize properties");
-    }
-
+    const currentStoredSettings = await getSettings(settingsUrl);
     ReactDOM.render(
       React.createElement(SovendusSettings, {
-        saveSettings: handleSettingsUpdate,
-        currentStoredSettings: currentSettings,
+        saveSettings,
+        currentStoredSettings,
       }),
       reactRoot
     );
   } catch (error) {
     console.error("Failed to fetch settings:", error);
   }
-});
+}
+
+const getSettings = async (
+  settingsUrl: string
+): Promise<SovendusAppSettings> => {
+  const response = await fetch(settingsUrl);
+  const currentSettingsJson = await response.json();
+  const currentSettings = JSON.parse(currentSettingsJson);
+
+  console.log("Current settings:", typeof currentSettings, currentSettings);
+  if (typeof currentSettings !== "object") {
+    console.log("Current settings:", typeof currentSettings, currentSettings);
+    throw new Error("Invalid settings format received from server");
+  }
+
+  if (!currentSettings?.voucherNetwork) {
+    console.log("Current settings:", currentSettings);
+    throw new Error("Settings data is missing voucherNetwork properties");
+  }
+
+  if (!currentSettings?.optimize) {
+    console.log("Current settings:", currentSettings);
+    throw new Error("Settings data is missing optimize properties");
+  }
+  return currentSettings;
+};
+
+function createReactRoot(container: HTMLElement) {
+  // Hide the original settings form and save button
+  (container.firstElementChild as HTMLElement).style.setProperty(
+    "display",
+    "none"
+  );
+  (
+    document.querySelector("button.save") as HTMLButtonElement
+  ).style.setProperty("display", "none");
+
+  const settingsContainer = document.createElement("div");
+  container.appendChild(settingsContainer);
+  // const shadowRoot = settingsContainer.attachShadow({ mode: "open" });
+  // const reactRoot = document.createElement("div");
+  // shadowRoot.appendChild(reactRoot);
+  return settingsContainer;
+  // return reactRoot;
+}
+void loadSetting();

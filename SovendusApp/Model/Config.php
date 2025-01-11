@@ -50,6 +50,7 @@ class Config implements ConfigInterface
 
     public function saveConfig($config): array
     {
+        // TODO: Validate config
         error_log("[Sovendus Debug] Saving config: " . json_encode($config));
         $this->configWriter->save($this->settings_keys->newSettingsKey, $config);
         return ['success' => true];
