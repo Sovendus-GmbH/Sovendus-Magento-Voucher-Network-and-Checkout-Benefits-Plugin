@@ -7,15 +7,15 @@ interface ConfigInterface
     /**
      * Get configuration settings
      *
-     * @return mixed
+     * @return array
      */
-    public function getConfig();
+    public function getConfig(): string;
 
     /**
      * Save configuration settings
      *
-     * @param mixed $config
-     * @return mixed
+     * @param string $config
+     * @return array
      */
     public function saveConfig($config);
 }

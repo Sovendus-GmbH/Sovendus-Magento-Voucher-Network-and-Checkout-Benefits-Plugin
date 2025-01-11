@@ -26,7 +26,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ json_config: updatedSettings }),
+        credentials: "same-origin",
+        body: JSON.stringify({
+          config: JSON.stringify(updatedSettings),
+        }),
       });
 
       if (response.ok) {
@@ -41,16 +44,34 @@ document.addEventListener("DOMContentLoaded", async () => {
       throw error;
     }
   };
+  try {
+    const response = await fetch(settingsUrl);
+    const currentSettingsJson = await response.json();
+    const currentSettings = JSON.parse(currentSettingsJson);
 
-  const response = await fetch(settingsUrl);
-  const currentSettings = (await response.json()) as SovendusAppSettings;
-  console.log("Current settings:", currentSettings);
+    console.log("Current settings:", typeof currentSettings, currentSettings);
+    if (typeof currentSettings !== "object") {
+      console.log("Current settings:", typeof currentSettings, currentSettings);
+      throw new Error("Invalid settings format received from server");
+    }
 
-  ReactDOM.render(
-    React.createElement(SovendusSettings, {
-      saveSettings: handleSettingsUpdate,
-      currentStoredSettings: currentSettings,
-    }),
-    reactRoot
-  );
+    if (!currentSettings?.voucherNetwork) {
+      console.log("Current settings:", currentSettings);
+      throw new Error("Settings data is missing voucherNetwork properties");
+    }
+    if (!currentSettings?.optimize) {
+      console.log("Current settings:", currentSettings);
+      throw new Error("Settings data is missing optimize properties");
+    }
+
+    ReactDOM.render(
+      React.createElement(SovendusSettings, {
+        saveSettings: handleSettingsUpdate,
+        currentStoredSettings: currentSettings,
+      }),
+      reactRoot
+    );
+  } catch (error) {
+    console.error("Failed to fetch settings:", error);
+  }
 });
