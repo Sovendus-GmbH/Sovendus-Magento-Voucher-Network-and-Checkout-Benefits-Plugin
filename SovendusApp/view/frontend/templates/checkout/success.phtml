@@ -1,19 +1,23 @@
+<div id='sovendus-integration-container'></div>
+
 <?php
 
+use Sovendus\SovendusApp\ViewModel\ThankyouPage;
+
+// use Magento\Checkout\Block\Onepage\Success;
+use Magento\Framework\View\Element\Template;
 use Sovendus\SovendusApp\ViewModel\Order;
-use Magento\Checkout\Block\Onepage\Success;
-// /** @var $block Success */
-// /** @var $viewModel Order */
 
-$viewModel = $block->getData('view_model');
-$viewModel->initializeSovendusData($block);
-if ($viewModel->isActive) {
-    echo <<<EOD
-            <script>
 
-            </script>
-        EOD;
-}
+/** @var $block Template */
+
+/** @var $order_data Order */
+
+$order_data = $block->getData('view_model');
+$order_data->initializeSovendusData($block);
+
+echo ThankyouPage::get_thankyou_page_settings($order_data);
+
 ?>
 
 <script type="text/javascript" src="<?php echo $block->getViewFileUrl('Sovendus_SovendusApp::js/thankyou-page.js'); ?>"></script>

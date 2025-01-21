@@ -7,11 +7,11 @@ use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\Config\Storage\WriterInterface;
 
 require_once __DIR__ . "/../sovendus-plugins-commons/settings/get-settings-helper.php";
+require_once __DIR__ . "/../Constants.php";
 
 
 class Config implements ConfigInterface
 {
-    protected $settings_keys;
     protected $scopeConfig;
     protected $configWriter;
 
@@ -19,17 +19,6 @@ class Config implements ConfigInterface
         ScopeConfigInterface $scopeConfig,
         WriterInterface $configWriter
     ) {
-        $this->settings_keys = new \SettingsKeys(
-            active_value: 1,
-            uses_lower_case: false,
-            newSettingsKey: "sovendus_settings",
-            active: "{countryCode}_sovendus_activated",
-            trafficSourceNumber: "{countryCode}_sovendus_trafficSourceNumber",
-            trafficMediumNumber: "{countryCode}_sovendus_trafficMediumNumber",
-            multiLangCountryActive: "{lang}_{countryCode}_sovendus_activated",
-            multiLangCountryTrafficSourceNumber: "{lang}_{countryCode}_sovendus_trafficSourceNumber",
-            multiLangCountryTrafficMediumNumber: "{lang}_{countryCode}_sovendus_trafficMediumNumber",
-        );
         $this->scopeConfig = $scopeConfig;
         $this->configWriter = $configWriter;
     }
@@ -43,7 +32,7 @@ class Config implements ConfigInterface
                 error_log("[Sovendus Debug] Fetching config key: $key, value: " . json_encode($value));
                 return $value;
             },
-            settings_keys: $this->settings_keys
+            settings_keys: SETTINGS_KEYS
         );
         return json_encode($settings);
     }
@@ -52,7 +41,7 @@ class Config implements ConfigInterface
     {
         // TODO: Validate config
         error_log("[Sovendus Debug] Saving config: " . json_encode($config));
-        $this->configWriter->save($this->settings_keys->newSettingsKey, $config);
+        $this->configWriter->save(SETTINGS_KEYS->newSettingsKey, $config);
         return ['success' => true];
     }
 }

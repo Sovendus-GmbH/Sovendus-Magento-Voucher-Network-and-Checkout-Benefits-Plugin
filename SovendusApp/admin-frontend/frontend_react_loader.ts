@@ -12,7 +12,8 @@ async function loadSetting() {
     return;
   }
   const reactRoot = createReactRoot(container);
-
+  // container.style.setProperty("transform", "scale(1.5)");
+  // container.style.setProperty("transform-origin", "top left");
   const saveSettings = async (
     updatedSettings: SovendusAppSettings
   ): Promise<SovendusAppSettings> => {

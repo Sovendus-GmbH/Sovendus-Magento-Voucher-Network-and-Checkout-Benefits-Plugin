@@ -1,14 +1,14 @@
 {
     "name": "sovendus_app_magento",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "description": "Sovendus App Magento",
     "private": true,
     "scripts": {
         "setup": "yarn install && cd SovendusApp/sovendus-plugins-commons && yarn install",
-        "build:release": "yarn build && yarn copy-build && yarn zip-builds",
-        "build": "cd SovendusApp/sovendus-plugins-commons && yarn build -bp ../view/adminhtml/web/js -fp ../view/frontend/web/js && cd ../..",
-        "copy-build": "mkdir -p dist && rsync -av --exclude 'sovendus-plugins-commons/node_modules' SovendusApp/ dist/SovendusApp/",
-        "zip-builds": "zip-build dist -t releases/sovendus-magento-module-latest.zip",
+        "build:prod": "yarn build && yarn copy-build && yarn zip-builds && rm -rf dist",
+        "build": "cd SovendusApp/sovendus-plugins-commons && yarn build -bp ../view/adminhtml/web/js -fp ../view/frontend/web/js",
+        "copy-build": "mkdir -p dist && rsync -av SovendusApp/ dist/SovendusApp/  --exclude sovendus-plugins-commons/builder --exclude sovendus-plugins-commons/.vscode --exclude 'sovendus-plugins-commons/node_modules' --exclude sovendus-plugins-commons/.gitignore --exclude sovendus-plugins-commons/.eslintrc.json --exclude sovendus-plugins-commons/.git",
+        "zip-builds": "zip-build dist releases -o -t %NAME%_%VERSION%.%EXT% && zip-build dist releases -o -t %NAME%_latest.%EXT%",
         "lint": "eslint **/*.ts --no-ignore --fix"
     },
     "dependencies": {

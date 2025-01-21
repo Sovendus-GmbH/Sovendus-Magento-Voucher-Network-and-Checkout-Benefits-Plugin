@@ -8,7 +8,7 @@ coming soon...
 
 ## Manual Installation on Magento
 
-1. Download the latest version [from here](https://raw.githubusercontent.com/Sovendus-GmbH/Sovendus-Magento-Voucher-Network-and-Checkout-Benefits-Plugin/main/releases/sovendus-magento-latest.zip)
+1. Download the latest version [from here](https://raw.githubusercontent.com/Sovendus-GmbH/Sovendus-Magento-Voucher-Network-and-Checkout-Benefits-Plugin/main/releases/sovendus_app_magento_latest.zip)
 2. Navigate to your Magento root folder
 3. Unpack the downloaded module zip file into yourMagentoRoot/app/code/Sovendus
 4. After you've unpacked it, the folder structure should look like this: yourMagentoRoot/app/code/Sovendus/SovendusApp
