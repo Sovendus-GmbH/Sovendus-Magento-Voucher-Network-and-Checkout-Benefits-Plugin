@@ -1,57 +1,25 @@
-import { SovendusSettings } from "../sovendus-plugins-commons/admin-frontend/sovendus-app-settings";
 import React from "react";
-import ReactDOM from "react-dom";
-import { SovendusAppSettings } from "../sovendus-plugins-commons/settings/app-settings";
+import ReactDOM from "react-dom/client";
 
-async function loadSetting() {
-  const settingsUrl = "/rest/V1/sovendus/config";
-  const containerId = "container";
-  const container = document.getElementById(containerId);
+import { SovendusSettings } from "../sovendus-plugins-commons/admin-frontend/sovendus-app-settings";
+import type { SovendusAppSettings } from "../sovendus-plugins-commons/settings/app-settings";
+
+async function loadSetting(): Promise<void> {
+  const container = createRootElement();
   if (!container) {
-    console.error(`Container with id ${containerId} not found`);
     return;
   }
-  const reactRoot = createReactRoot(container);
+  const reactRoot = ReactDOM.createRoot(container);
   // container.style.setProperty("transform", "scale(1.5)");
   // container.style.setProperty("transform-origin", "top left");
-  const saveSettings = async (
-    updatedSettings: SovendusAppSettings
-  ): Promise<SovendusAppSettings> => {
-    console.log("Attempting to save settings...");
-
-    try {
-      const response = await fetch(settingsUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "same-origin",
-        body: JSON.stringify({
-          config: JSON.stringify(updatedSettings),
-        }),
-      });
-
-      if (response.ok) {
-        console.log("Settings saved successfully");
-        return updatedSettings;
-      } else {
-        const errorText = await response.text();
-        throw new Error(errorText);
-      }
-    } catch (error) {
-      console.error("Save failed:", error);
-      throw error;
-    }
-  };
 
   try {
     const currentStoredSettings = await getSettings(settingsUrl);
-    ReactDOM.render(
+    reactRoot.render(
       React.createElement(SovendusSettings, {
         saveSettings,
         currentStoredSettings,
       }),
-      reactRoot
     );
   } catch (error) {
     console.error("Failed to fetch settings:", error);
@@ -59,13 +27,18 @@ async function loadSetting() {
 }
 
 const getSettings = async (
-  settingsUrl: string
+  settingsUrl: string,
 ): Promise<SovendusAppSettings> => {
   const response = await fetch(settingsUrl);
   const currentSettingsJson = await response.json();
+  console.log(
+    "Current currentSettingsJson:",
+    typeof currentSettingsJson,
+    currentSettingsJson,
+  );
   const currentSettings = JSON.parse(currentSettingsJson);
-
   console.log("Current settings:", typeof currentSettings, currentSettings);
+
   if (typeof currentSettings !== "object") {
     console.log("Current settings:", typeof currentSettings, currentSettings);
     throw new Error("Invalid settings format received from server");
@@ -80,14 +53,51 @@ const getSettings = async (
     console.log("Current settings:", currentSettings);
     throw new Error("Settings data is missing optimize properties");
   }
+
   return currentSettings;
 };
 
-function createReactRoot(container: HTMLElement) {
+const settingsUrl = "/rest/V1/sovendus/config";
+const saveSettings = async (
+  updatedSettings: SovendusAppSettings,
+): Promise<SovendusAppSettings> => {
+  console.log("Attempting to save settings...");
+
+  try {
+    const response = await fetch(settingsUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "same-origin",
+      body: JSON.stringify({
+        config: JSON.stringify(updatedSettings),
+      }),
+    });
+
+    const responseText = await response.text();
+    if (response.ok) {
+      console.log("Settings saved successfully", responseText);
+      return updatedSettings;
+    }
+    throw new Error(responseText);
+  } catch (error) {
+    console.error("Save failed:", error);
+    throw error;
+  }
+};
+
+function createRootElement(): HTMLDivElement | undefined {
+  const containerId = "container";
+  const container = document.getElementById(containerId) as HTMLDivElement;
+  if (!container) {
+    console.error(`Container with id ${containerId} not found`);
+    return;
+  }
   // Hide the original settings form and save button
   (container.firstElementChild as HTMLElement).style.setProperty(
     "display",
-    "none"
+    "none",
   );
   (
     document.querySelector("button.save") as HTMLButtonElement
@@ -101,4 +111,5 @@ function createReactRoot(container: HTMLElement) {
   return settingsContainer;
   // return reactRoot;
 }
+
 void loadSetting();

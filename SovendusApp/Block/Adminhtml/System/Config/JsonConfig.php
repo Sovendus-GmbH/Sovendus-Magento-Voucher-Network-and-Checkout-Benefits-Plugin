@@ -9,6 +9,7 @@ class JsonConfig extends Field
 {
     protected function _getElementHtml(AbstractElement $element)
     {
-        return '<script id="sovloader" type="text/javascript" src="' . $this->getViewFileUrl('Sovendus_SovendusApp::js/frontend_react_loader.js') . '"></script>';
+        return '<script id="sovloader" type="text/javascript" src="'
+            . $this->getViewFileUrl('Sovendus_SovendusApp::js/frontend_react_loader.js') . '"></script>';
     }
 }

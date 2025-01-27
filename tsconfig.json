@@ -45,6 +45,6 @@
     "suppressImplicitAnyIndexErrors": false,
     "noStrictGenericChecks": false
   },
-  "include": ["wc-sovendus/**/*.ts"],
+  "include": ["SovendusApp/**/*.ts"],
   "exclude": ["./node_modules"]
 }
