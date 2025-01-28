@@ -5,52 +5,33 @@ namespace Sovendus\SovendusApp\Model;
 use Sovendus\SovendusApp\Api\ConfigInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\Config\Storage\WriterInterface;
+use Magento\Framework\App\Cache\TypeListInterface;
+use Magento\Framework\App\Cache\Frontend\Pool;
 
 require_once __DIR__ . "/../sovendus-plugins-commons/settings/get-settings-helper.php";
+require_once __DIR__ . "/../sovendus-plugins-commons/settings/app-settings.php";
 require_once __DIR__ . "/../Constants.php";
 
 class Config implements ConfigInterface
 {
     protected $scopeConfig;
     protected $configWriter;
+    protected $cacheTypeList;
+    protected $cacheFrontendPool;
 
     public function __construct(
         ScopeConfigInterface $scopeConfig,
-        WriterInterface $configWriter
+        WriterInterface $configWriter,
+        TypeListInterface $cacheTypeList,
+        Pool $cacheFrontendPool,
     ) {
         $this->scopeConfig = $scopeConfig;
         $this->configWriter = $configWriter;
+        $this->cacheTypeList = $cacheTypeList;
+        $this->cacheFrontendPool = $cacheFrontendPool;
     }
-
     public function getConfig(): string
     {
-        $path = \SETTINGS_KEYS->newSettingsKey;
-
-        error_log("[Sovendus Debug] Attempting to read from path: " . $path);
-
-        // Try reading with store scope
-        $stored_config = $this->scopeConfig->getValue(
-            $path,
-            \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
-            0
-        );
-
-        error_log("[Sovendus Debug] Store scope value: " . var_export($stored_config, true));
-
-        if (!$stored_config) {
-            // Try default scope
-            $stored_config = $this->scopeConfig->getValue(
-                $path,
-                \Magento\Framework\App\Config\ScopeConfigInterface::SCOPE_TYPE_DEFAULT
-            );
-            error_log("[Sovendus Debug] Default scope value: " . var_export($stored_config, true));
-        }
-
-        if ($stored_config) {
-            return $stored_config;
-        }
-
-        // Generate default settings
         $settings = \Get_Settings_Helper::get_settings(
             countryCode: null,
             get_option_callback: function ($key) {
@@ -58,28 +39,30 @@ class Config implements ConfigInterface
             },
             settings_keys: \SETTINGS_KEYS
         );
+        // TODO handle custom hooks
+        $settings->voucherNetwork->iframeContainerId = " .page.messages";
 
         return json_encode($settings);
     }
 
     public function saveConfig($config): array
     {
-        $path = \SETTINGS_KEYS->newSettingsKey;
-        error_log("[Sovendus Debug] Saving config to path: " . $path);
-        error_log("[Sovendus Debug] Config value: " . $config);
+        $decodedConfig = json_decode($config, true);
+        $validated_settings = \Sovendus_App_Settings::fromJson($decodedConfig);
 
-        try {
-            $this->configWriter->save(
-                $path,
-                $config,
-                \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
-                0
-            );
-            error_log("[Sovendus Debug] Save successful");
-            return ['success' => true, "config" => $config];
-        } catch (\Exception $e) {
-            error_log("[Sovendus Debug] Save failed: " . $e->getMessage());
-            throw $e;
+        $this->configWriter->save(SETTINGS_KEYS->newSettingsKey, json_encode($validated_settings));
+        $this->flushCache();
+        return ['success' => true];
+    }
+
+    protected function flushCache()
+    {
+        $types = ['config', 'full_page'];
+        foreach ($types as $type) {
+            $this->cacheTypeList->cleanType($type);
+        }
+        foreach ($this->cacheFrontendPool as $cacheFrontend) {
+            $cacheFrontend->getBackend()->clean();
         }
     }
 }

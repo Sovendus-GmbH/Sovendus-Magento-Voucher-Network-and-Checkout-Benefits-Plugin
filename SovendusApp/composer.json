@@ -13,7 +13,7 @@
     "magento 2 order success page"
   ],
   "type": "magento2-module",
-  "version": "2.0.0",
+  "version": "2.0.0-beta",
   "require": {
     "magento/framework": ">=102.0.0"
   },

@@ -10,8 +10,6 @@ async function loadSetting(): Promise<void> {
     return;
   }
   const reactRoot = ReactDOM.createRoot(container);
-  // container.style.setProperty("transform", "scale(1.5)");
-  // container.style.setProperty("transform-origin", "top left");
 
   try {
     const currentStoredSettings = await getSettings(settingsUrl);
@@ -19,6 +17,7 @@ async function loadSetting(): Promise<void> {
       React.createElement(SovendusSettings, {
         saveSettings,
         currentStoredSettings,
+        zoomedVersion: true,
       }),
     );
   } catch (error) {
@@ -30,14 +29,11 @@ const getSettings = async (
   settingsUrl: string,
 ): Promise<SovendusAppSettings> => {
   const response = await fetch(settingsUrl);
-  const currentSettingsJson = await response.json();
-  console.log(
-    "Current currentSettingsJson:",
-    typeof currentSettingsJson,
+  const currentSettingsJson = (await response.json()) as string;
+  console.log("Current settings:", currentSettingsJson);
+  const currentSettings = JSON.parse(
     currentSettingsJson,
-  );
-  const currentSettings = JSON.parse(currentSettingsJson);
-  console.log("Current settings:", typeof currentSettings, currentSettings);
+  ) as SovendusAppSettings;
 
   if (typeof currentSettings !== "object") {
     console.log("Current settings:", typeof currentSettings, currentSettings);
@@ -61,8 +57,6 @@ const settingsUrl = "/rest/V1/sovendus/config";
 const saveSettings = async (
   updatedSettings: SovendusAppSettings,
 ): Promise<SovendusAppSettings> => {
-  console.log("Attempting to save settings...");
-
   try {
     const response = await fetch(settingsUrl, {
       method: "POST",
@@ -77,7 +71,6 @@ const saveSettings = async (
 
     const responseText = await response.text();
     if (response.ok) {
-      console.log("Settings saved successfully", responseText);
       return updatedSettings;
     }
     throw new Error(responseText);
@@ -90,6 +83,7 @@ const saveSettings = async (
 function createRootElement(): HTMLDivElement | undefined {
   const containerId = "container";
   const container = document.getElementById(containerId) as HTMLDivElement;
+
   if (!container) {
     console.error(`Container with id ${containerId} not found`);
     return;
@@ -104,6 +98,8 @@ function createRootElement(): HTMLDivElement | undefined {
   ).style.setProperty("display", "none");
 
   const settingsContainer = document.createElement("div");
+  settingsContainer.id = "sovendus-settings-container";
+
   container.appendChild(settingsContainer);
   // const shadowRoot = settingsContainer.attachShadow({ mode: "open" });
   // const reactRoot = document.createElement("div");

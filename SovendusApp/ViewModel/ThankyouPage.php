@@ -25,7 +25,7 @@ class ThankyouPage
             $order_data = ObjectManager::getInstance()->create(Order::class);
         }
         $order_data->initializeOrderData();
-        $language = detectLanguage();
+        $language = detectLanguage()[0];
         $objectManager = ObjectManager::getInstance();
         $configModel = $objectManager->get(Config::class);
         $encoded_settings = $configModel->getConfig();
@@ -47,9 +47,8 @@ class ThankyouPage
                     "consumerFirstName": "$order_data->consumerFirstName",
                     "consumerLastName": "$order_data->consumerLastName",
                     "consumerEmail": "$order_data->consumerEmail",
-                    "consumerPhone": "$order_data->consumerPhone",
-                    "consumerStreetNumber": "$order_data->consumerStreetNumber",
                     "consumerStreet": "$order_data->consumerStreet",
+                    "consumerStreetNumber": "$order_data->consumerStreetNumber",
                     "consumerZipcode": "$order_data->consumerZipcode",
                     "consumerCity": "$order_data->consumerCity",
                     "consumerCountry": "$order_data->consumerCountry",
