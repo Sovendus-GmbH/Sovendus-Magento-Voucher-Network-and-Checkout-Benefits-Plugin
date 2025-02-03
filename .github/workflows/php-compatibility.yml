@@ -66,8 +66,7 @@ jobs:
         run: |
           find . -name "*.php" -print0 | xargs -0 -n1 php -l
 
-      - name: Install PHPStan for Static Analysis
+      - name: Run PHPStan for Static Analysis
         working-directory: SovendusApp
         run: |
-          composer require --dev phpstan/phpstan
-          vendor/bin/phpstan analyse -c phpstan.neon || exit 1
+          vendor/bin/phpstan analyse -c ../phpstan.neon || exit 1
