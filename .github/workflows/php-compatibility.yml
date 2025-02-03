@@ -33,7 +33,7 @@ jobs:
             exit 1
           fi
 
-      - name: Setup Magento Auth and Install Magento2 Stubs
+      - name: Setup Magento Auth and Install Dependencies
         run: |
           mkdir -p ~/.composer
           echo '{
@@ -44,10 +44,10 @@ jobs:
               }
             }
           }' > ~/.composer/auth.json
-          composer require --dev magento/magento2-functional-testing-framework:"dev-master" --update-with-dependencies
+          composer config --no-plugins allow-plugins.magento/composer-dependency-version-audit-plugin true
+          composer require --dev magento/magento2-functional-testing-framework:"dev-master" phpstan/phpstan squizlabs/php_codesniffer phpcompatibility/php-compatibility --update-with-dependencies
 
       - name: Install PHPCompatibility and PHP_CodeSniffer
-        working-directory: SovendusApp
         run: |
           composer global require "squizlabs/php_codesniffer"
           composer global require "phpcompatibility/php-compatibility"
@@ -57,16 +57,13 @@ jobs:
           $PHPCS_PATH -i
 
       - name: Run PHP 7.0 Compatibility Check
-        working-directory: SovendusApp
         run: |
           ~/.composer/vendor/bin/phpcs --standard=PHPCompatibility --runtime-set testVersion 7.0-7.0 . || exit 1
 
       - name: Lint PHP Files
-        working-directory: SovendusApp
         run: |
           find . -name "*.php" -print0 | xargs -0 -n1 php -l
 
       - name: Run PHPStan for Static Analysis
-        working-directory: SovendusApp
         run: |
-          vendor/bin/phpstan analyse -c ../phpstan.neon || exit 1
+          vendor/bin/phpstan analyse -c phpstan.neon || exit 1
