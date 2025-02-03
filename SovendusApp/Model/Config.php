@@ -27,7 +27,7 @@ class Config implements ConfigInterface
         ScopeConfigInterface $scopeConfig,
         WriterInterface $configWriter,
         TypeListInterface $cacheTypeList,
-        Pool $cacheFrontendPool,
+        Pool $cacheFrontendPool
     ) {
         $this->scopeConfig = $scopeConfig;
         $this->configWriter = $configWriter;
