@@ -71,7 +71,12 @@ jobs:
           mkdir -p stubs
           echo "<?php" > stubs/magento.stub.php
           echo "// Auto-generated Magento stubs" >> stubs/magento.stub.php
-          find vendor/magento/framework -type f -name "*Interface.php" -exec cat {} \; >> stubs/magento.stub.php
+
+          # Process each interface file
+          find vendor/magento/framework -type f -name "*Interface.php" | while read file; do
+            # Extract PHP code only, remove XML/HTML docs
+            sed -n '/<?php/,${/^[[:space:]]*\*\|^[[:space:]]*\/\*\|^[[:space:]]*\/\//!p}' "$file" >> stubs/magento.stub.php
+          done
 
       - name: Run PHPStan for Static Analysis
         working-directory: SovendusApp
