@@ -26,6 +26,13 @@ jobs:
         working-directory: SovendusApp
         run: pwd
 
+      - name: Check Magento Auth Keys
+        run: |
+          if [ -z "${{ secrets.MAGENTO_PUBLIC_KEY }}" ] || [ -z "${{ secrets.MAGENTO_PRIVATE_KEY }}" ]; then
+            echo "Magento authentication keys are not set."
+            exit 1
+          fi
+
       - name: Setup Magento Auth and Install Magento2 Stubs
         working-directory: SovendusApp
         run: |
@@ -39,11 +46,6 @@ jobs:
             }
           }' > ~/.composer/auth.json
           composer require --dev magento/magento2-stubs:"dev-master" --update-with-dependencies
-
-      - name: Configure Composer (Dev/Install)
-        working-directory: SovendusApp
-        run: |
-          composer install
 
       - name: Install PHPCompatibility and PHP_CodeSniffer
         working-directory: SovendusApp
