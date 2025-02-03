@@ -41,11 +41,11 @@ class Config implements ConfigInterface
     public function getConfig()
     {
         $settings = \Get_Settings_Helper::get_settings(
-            countryCode: null,
-            get_option_callback: function ($key) {
+            null,
+            function ($key) {
                 return $this->scopeConfig->getValue($key, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
             },
-            settings_keys: \SETTINGS_KEYS
+            \SETTINGS_KEYS
         );
         // TODO handle custom hooks
         $settings->voucherNetwork->iframeContainerId = " .page.messages";
