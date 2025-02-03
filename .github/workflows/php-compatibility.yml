@@ -33,6 +33,7 @@ jobs:
 
       - name: Configure Composer for dev repositories
         run: |
+          cd SovendusApp
           composer config minimum-stability dev
           composer config prefer-stable false
           composer install
