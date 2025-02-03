@@ -73,11 +73,24 @@ jobs:
           <?php
           require_once __DIR__ . '/../vendor/autoload.php';
 
-          // Register Magento module namespaces
-          \Magento\Framework\Autoload\AutoloaderRegistry::getAutoloader()->addPsr4('Magento\\Store\\', __DIR__ . '/../vendor/magento/module-store/');
-          \Magento\Framework\Autoload\AutoloaderRegistry::getAutoloader()->addPsr4('Magento\\Sales\\', __DIR__ . '/../vendor/magento/module-sales/');
-          \Magento\Framework\Autoload\AutoloaderRegistry::getAutoloader()->addPsr4('Magento\\Checkout\\', __DIR__ . '/../vendor/magento/module-checkout/');
-          \Magento\Framework\Autoload\AutoloaderRegistry::getAutoloader()->addPsr4('Magento\\Config\\', __DIR__ . '/../vendor/magento/module-config/');
+          // Initialize Magento autoloader
+          $vendorDir = require __DIR__ . '/../vendor/autoload.php';
+
+          // Register standard Magento paths
+          $paths = [
+              'Magento\\Framework\\' => __DIR__ . '/../vendor/magento/framework/',
+              'Magento\\Store\\' => __DIR__ . '/../vendor/magento/module-store/',
+              'Magento\\Sales\\' => __DIR__ . '/../vendor/magento/module-sales/',
+              'Magento\\Checkout\\' => __DIR__ . '/../vendor/magento/module-checkout/',
+              'Magento\\Config\\' => __DIR__ . '/../vendor/magento/module-config/'
+          ];
+
+          // Register paths with Composer autoloader
+          $loader = new \Composer\Autoload\ClassLoader();
+          foreach ($paths as $namespace => $path) {
+              $loader->addPsr4($namespace, $path);
+          }
+          $loader->register();
           EOF
 
       - name: Run PHPStan for Static Analysis
