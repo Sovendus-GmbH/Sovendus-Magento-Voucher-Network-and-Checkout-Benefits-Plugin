@@ -21,7 +21,7 @@ class SovendusPage
         $objectManager = ObjectManager::getInstance();
         $configModel = $objectManager->get(Config::class);
         $encoded_settings = $configModel->getConfig();
-        $integrationType = getIntegrationType(pluginName: \PLUGIN_NAME, pluginVersion: \SOVENDUS_VERSION);
+        $integrationType = getIntegrationType(\PLUGIN_NAME,  \SOVENDUS_VERSION);
         return <<<EOD
             <script>
                 var sovPageConfig = {
