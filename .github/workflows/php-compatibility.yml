@@ -57,9 +57,6 @@ jobs:
           find . -name "*.php" -print0 | xargs -0 -n1 php -l
         continue-on-error: false
 
-      - name: Install Magento2 Stubs
-        run: composer require --dev magento/magento2-stubs
-
       - name: Install PHPStan for Static Analysis
         run: |
           composer require --dev phpstan/phpstan
