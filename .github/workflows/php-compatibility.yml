@@ -23,7 +23,7 @@ jobs:
       - name: Install Magento Stubs
         run: |
           cd SovendusApp
-          composer require --dev magento/magento2-stubs
+          composer require --dev magento/magento2-stubs:dev-master
           cd ..
 
       - name: Set up PHP
