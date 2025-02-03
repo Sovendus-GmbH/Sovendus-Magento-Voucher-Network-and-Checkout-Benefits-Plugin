@@ -7,9 +7,9 @@ interface ConfigInterface
     /**
      * Get configuration settings
      *
-     * @return array
+     * @return string
      */
-    public function getConfig(): string;
+    public function getConfig();
 
     /**
      * Save configuration settings

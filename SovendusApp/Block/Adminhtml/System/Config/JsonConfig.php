@@ -7,7 +7,11 @@ use Magento\Framework\Data\Form\Element\AbstractElement;
 
 class JsonConfig extends Field
 {
-    protected function _getElementHtml(AbstractElement $element)
+    /**
+     * @param AbstractElement $element
+     * @return string
+     */
+    public function _getElementHtml($element)
     {
         return '<script id="sovloader" type="text/javascript" src="'
             . $this->getViewFileUrl('Sovendus_SovendusApp::js/frontend_react_loader.js') . '"></script>';

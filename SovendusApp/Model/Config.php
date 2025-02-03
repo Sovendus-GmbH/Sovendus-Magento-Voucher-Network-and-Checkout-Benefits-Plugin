@@ -14,10 +14,14 @@ require_once __DIR__ . "/../Constants.php";
 
 class Config implements ConfigInterface
 {
-    protected $scopeConfig;
-    protected $configWriter;
-    protected $cacheTypeList;
-    protected $cacheFrontendPool;
+    private $scopeConfig;
+    private $configWriter;
+    private $cacheTypeList;
+    private $cacheFrontendPool;
+
+    /**
+     * @return void
+     */
 
     public function __construct(
         ScopeConfigInterface $scopeConfig,
@@ -30,7 +34,11 @@ class Config implements ConfigInterface
         $this->cacheTypeList = $cacheTypeList;
         $this->cacheFrontendPool = $cacheFrontendPool;
     }
-    public function getConfig(): string
+
+    /**
+     * @return string
+     */
+    public function getConfig()
     {
         $settings = \Get_Settings_Helper::get_settings(
             countryCode: null,
@@ -45,17 +53,24 @@ class Config implements ConfigInterface
         return json_encode($settings);
     }
 
-    public function saveConfig($config): array
+    /**
+     * @param string $config
+     * @return array
+     */
+    public function saveConfig($config)
     {
         $decodedConfig = json_decode($config, true);
         $validated_settings = \Sovendus_App_Settings::fromJson($decodedConfig);
 
-        $this->configWriter->save(SETTINGS_KEYS->newSettingsKey, json_encode($validated_settings));
+        $this->configWriter->save(\SETTINGS_KEYS->newSettingsKey, json_encode($validated_settings));
         $this->flushCache();
         return ['success' => true];
     }
 
-    protected function flushCache()
+    /**
+     * @return void
+     */
+    private function flushCache()
     {
         $types = ['config', 'full_page'];
         foreach ($types as $type) {

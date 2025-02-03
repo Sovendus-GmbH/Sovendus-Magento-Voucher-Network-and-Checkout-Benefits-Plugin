@@ -7,69 +7,105 @@ use Magento\Cms\Model\Template\FilterProvider;
 use Magento\Customer\Model\Address\Config as AddressConfig;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
+use Magento\Checkout\Model\Session;
 
 class Order implements ArgumentInterface
 {
     /**
-     * @var AddressConfig
+     * @var string|null
      */
-    private $addressConfig;
     /**
-     * @var ScopeConfigInterface
+     * @var string|null
      */
-    private $scopeConfig;
-    /**
-     * @var FilterProvider
-     */
-    private $filterProvider;
-    /**
-     * @var Config
-     */
-    private $config;
-
-
     public $orderId;
+    /**
+     * @var string|null
+     */
     public $timestamp;
+    /**
+     * @var string|null
+     */
     public $sessionId;
+    /**
+     * @var string|null
+     */
     public $orderValue;
+    /**
+     * @var string|null
+     */
     public $orderCurrency;
+    /**
+     * @var array
+     */
     public $usedCouponCodes;
+    /**
+     * @var string|null
+     */
     public $consumerSalutation;
+    /**
+     * @var string|null
+     */
     public $consumerFirstName;
+    /**
+     * @var string|null
+     */
     public $consumerLastName;
+    /**
+     * @var string|null
+     */
     public $consumerEmail;
+    /**
+     * @var string|null
+     */
     public $consumerPhone;
+    /**
+     * @var string|null
+     */
     public $consumerStreet;
+    /**
+     * @var string|null
+     */
     public $consumerStreetNumber;
+    /**
+     * @var string|null
+     */
     public $consumerZipcode;
+    /**
+     * @var string|null
+     */
     public $consumerCity;
+    /**
+     * @var string|null
+     */
     public $consumerCountry;
-    private \Magento\Checkout\Model\Session $checkoutSession;
+    /**
+     * @var Session
+     */
+    private $checkoutSession;
 
+    /**
+     * @return array
+     */
     public function __construct(
-        AddressConfig $addressConfig,
-        ScopeConfigInterface $scopeConfig,
-        FilterProvider $filterProvider,
-        Config $config,
-        \Magento\Checkout\Model\Session $checkoutSession
+        Session $checkoutSession
     ) {
-        $this->addressConfig = $addressConfig;
-        $this->scopeConfig = $scopeConfig;
-        $this->filterProvider = $filterProvider;
-        $this->config = $config;
         $this->checkoutSession = $checkoutSession;
     }
 
+
+    /**
+     * @return void
+     */
     public function initializeOrderData()
     {
         $order = $this->getorder();
         $consumerSData = $order->getShippingAddress()->getData();
         $consumerBData = $order->getBillingAddress()->getData();
         $this->orderId = $order->getIncrementId();
-        if (isset($consumerSData["country_id"])) {
-            $this->consumerCountry = $consumerSData["country_id"];
-        } else if (isset($consumerBData["country_id"])) {
+        if (isset($consumerBData["country_id"])) {
             $this->consumerCountry = $consumerBData["country_id"];
+        } else if (isset($consumerSData["country_id"])) {
+            $this->consumerCountry = $consumerSData["country_id"];
         }
         $this->timestamp = time();
         $grosValue = (float) $order->getGrandTotal();
@@ -82,7 +118,7 @@ class Order implements ArgumentInterface
         $usedCouponCode = $order->getCouponCode();
         $this->usedCouponCodes = $usedCouponCode ? [$usedCouponCode] : [];
         // TODO
-        // $this->consumerSalutation = $order->getCustomerGender();
+        $this->consumerSalutation = $order->getCustomerGender();
         $this->consumerFirstName = $order->getCustomerFirstName();
         $this->consumerLastName = $order->getCustomerLastName();
         if (isset($consumerSData["email"])) {
@@ -111,11 +147,20 @@ class Order implements ArgumentInterface
             $this->consumerCity = $consumerBData["city"];
         }
     }
+
+    /**
+     * @return \Magento\Sales\Model\Order
+     */
     function getorder()
     {
         return $this->checkoutSession->getLastRealOrder();
     }
-    function splitStreetAndStreetNumber(string $street)
+
+    /**
+     * @param string $street
+     * @return array
+     */
+    function splitStreetAndStreetNumber($street)
     {
         if ((strlen($street) > 0) && preg_match_all('#([0-9/ -]+ ?[a-zA-Z]?(\s|$))#', trim($street), $match)) {
             $housenr = end($match[0]);

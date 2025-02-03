@@ -15,11 +15,14 @@ require_once __DIR__ . '/helper.php';
 
 class ThankyouPage
 {
-    public static function get_thankyou_page_settings(Template $block)
+    /**
+     * @param Template $block
+     * @return string
+     */
+    public static function get_thankyou_page_settings($block)
     {
 
         /** @var $order_data Order */
-
         $order_data = $block->getData('view_model');
         if (!$order_data instanceof Order) {
             $order_data = ObjectManager::getInstance()->create(Order::class);

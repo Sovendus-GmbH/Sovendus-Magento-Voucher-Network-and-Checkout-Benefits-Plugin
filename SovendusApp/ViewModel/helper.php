@@ -4,6 +4,9 @@ use Magento\Framework\App\ObjectManager;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Store\Model\ScopeInterface;
 
+/**
+ * @return array
+ */
 function detectLanguage()
 {
     $objectManager = ObjectManager::getInstance();
