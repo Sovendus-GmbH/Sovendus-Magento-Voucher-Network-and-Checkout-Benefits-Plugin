@@ -38,5 +38,10 @@
     "magento/magento2-functional-testing-framework": "dev-master"
   },
   "minimum-stability": "dev",
-  "prefer-stable": true
+  "prefer-stable": true,
+  "config": {
+    "allow-plugins": {
+      "magento/composer-dependency-version-audit-plugin": true
+    }
+  }
 }
