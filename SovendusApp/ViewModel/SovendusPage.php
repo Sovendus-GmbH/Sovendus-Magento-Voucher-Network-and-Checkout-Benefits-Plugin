@@ -17,7 +17,7 @@ class SovendusPage
      */
     public static function get_sovendus_page_settings()
     {
-        list[$language, $country] = detectLanguage();
+        list($language, $country) = detectLanguage();
         $objectManager = ObjectManager::getInstance();
         $configModel = $objectManager->get(Config::class);
         $encoded_settings = $configModel->getConfig();
@@ -31,6 +31,6 @@ class SovendusPage
                     'language': "$language",
                 };
             </script>
-    EOD;
+EOD;
     }
 }
