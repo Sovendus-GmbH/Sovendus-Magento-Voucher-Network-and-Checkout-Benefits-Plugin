@@ -42,6 +42,7 @@ jobs:
       - name: Configure Composer (Dev/Install)
         working-directory: SovendusApp
         run: |
+          composer config http-basic.repo.magento.com "${{ secrets.MAGENTO_PUBLIC_KEY }}" "${{ secrets.MAGENTO_PRIVATE_KEY }}"
           composer config minimum-stability dev
           composer config prefer-stable false
           composer install
