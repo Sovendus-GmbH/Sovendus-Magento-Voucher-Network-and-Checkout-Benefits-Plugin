@@ -8,7 +8,7 @@ parameters:
   
   # Load Magento stubs from the installed package.
   scanFiles:
-    - %root%/vendor/magento/magento2-stubs/magento.stub.php
-    
+    - %currentWorkingDirectory%/vendor/magento/magento2-stubs/magento.stub.php
+
   excludePaths:
     - vendor/*
