@@ -8,7 +8,6 @@ use Magento\Customer\Model\Address\Config as AddressConfig;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
 use Magento\Checkout\Model\Session;
-// use Magento\Sales\Model\Order\Address;
 
 class Order implements ArgumentInterface
 {
