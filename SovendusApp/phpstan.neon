@@ -6,9 +6,9 @@ parameters:
   bootstrapFiles:
     - %currentWorkingDirectory%/vendor/autoload.php
   
-  # Use corrected path for Magento stubs.
+  # Use alternative path for Magento stubs.
   scanFiles:
-    - %currentWorkingDirectory%/vendor/magento/magento2-functional-testing-framework/Magento/FunctionalTestingFramework/_files/Magento.php
+    - %currentWorkingDirectory%/vendor/magento/magento2-functional-testing-framework/_files/Magento.php
 
   excludePaths:
     - vendor/*
