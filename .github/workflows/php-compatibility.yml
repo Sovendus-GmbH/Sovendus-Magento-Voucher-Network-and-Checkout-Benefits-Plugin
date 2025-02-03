@@ -26,7 +26,7 @@ jobs:
         working-directory: SovendusApp
         run: pwd
 
-      - name: Setup Magento Auth
+      - name: Setup Magento Auth and Install Magento2 Stubs
         working-directory: SovendusApp
         run: |
           mkdir -p ~/.composer
@@ -38,13 +38,11 @@ jobs:
               }
             }
           }' > ~/.composer/auth.json
+          composer require --dev magento/magento2-stubs:"dev-master" --update-with-dependencies
 
       - name: Configure Composer (Dev/Install)
         working-directory: SovendusApp
         run: |
-          composer config http-basic.repo.magento.com "${{ secrets.MAGENTO_PUBLIC_KEY }}" "${{ secrets.MAGENTO_PRIVATE_KEY }}"
-          composer config minimum-stability dev
-          composer config prefer-stable false
           composer install
 
       - name: Install PHPCompatibility and PHP_CodeSniffer
@@ -56,11 +54,6 @@ jobs:
           PHP_COMPATIBILITY_PATH=$(composer global config home)/vendor/phpcompatibility/php-compatibility
           $PHPCS_PATH --config-set installed_paths $PHP_COMPATIBILITY_PATH
           $PHPCS_PATH -i
-
-      - name: Install Magento2 Stubs
-        working-directory: SovendusApp
-        run: |
-          composer require --dev magento/magento2-stubs:"dev-master" --update-with-dependencies
 
       - name: Run PHP 7.0 Compatibility Check
         working-directory: SovendusApp
