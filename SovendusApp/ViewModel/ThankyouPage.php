@@ -24,14 +24,10 @@ class ThankyouPage
 
         /** @var \Sovendus\SovendusApp\ViewModel\Order $order_data */
         $order_data = $block->getData('view_model');
-        if (!$order_data instanceof Order) {
-            $order_data = ObjectManager::getInstance()->create(Order::class);
-        }
+
         $order_data->initializeOrderData();
         $language = detectLanguage()[0];
-        $objectManager = ObjectManager::getInstance();
-        $configModel = $objectManager->get(Config::class);
-        $encoded_settings = $configModel->getConfig();
+        $encoded_settings = ObjectManager::getInstance()->get(Config::class)->getConfig();
         $integrationType = getIntegrationType(\PLUGIN_NAME, \SOVENDUS_VERSION);
         $encoded_coupons = json_encode($order_data->usedCouponCodes);
         return <<<EOD
