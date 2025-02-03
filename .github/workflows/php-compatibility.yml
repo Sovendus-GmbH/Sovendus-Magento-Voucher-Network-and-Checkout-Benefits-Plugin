@@ -65,6 +65,21 @@ jobs:
           PHPCS_PATH=$(composer global config bin-dir --absolute)/phpcs
           $PHPCS_PATH --standard=PHPCompatibility --runtime-set testVersion 7.0-7.0 --ignore=vendor/* . || exit 1
 
+      - name: Create PHPStan bootstrap
+        working-directory: SovendusApp
+        run: |
+          mkdir -p dev
+          cat > dev/phpstan-bootstrap.php << 'EOF'
+          <?php
+          require_once __DIR__ . '/../vendor/autoload.php';
+
+          // Register Magento module namespaces
+          \Magento\Framework\Autoload\AutoloaderRegistry::getAutoloader()->addPsr4('Magento\\Store\\', __DIR__ . '/../vendor/magento/module-store/');
+          \Magento\Framework\Autoload\AutoloaderRegistry::getAutoloader()->addPsr4('Magento\\Sales\\', __DIR__ . '/../vendor/magento/module-sales/');
+          \Magento\Framework\Autoload\AutoloaderRegistry::getAutoloader()->addPsr4('Magento\\Checkout\\', __DIR__ . '/../vendor/magento/module-checkout/');
+          \Magento\Framework\Autoload\AutoloaderRegistry::getAutoloader()->addPsr4('Magento\\Config\\', __DIR__ . '/../vendor/magento/module-config/');
+          EOF
+
       - name: Run PHPStan for Static Analysis
         working-directory: SovendusApp
         run: |
