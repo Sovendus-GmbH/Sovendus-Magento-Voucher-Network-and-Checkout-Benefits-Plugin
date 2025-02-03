@@ -65,17 +65,20 @@ jobs:
           PHPCS_PATH=$(composer global config bin-dir --absolute)/phpcs
           $PHPCS_PATH --standard=PHPCompatibility --runtime-set testVersion 7.0-7.0 --ignore=vendor/* . || exit 1
 
-      - name: Debug - List Repository Structure
+      - name: Debug - Detailed Repository Search
         working-directory: SovendusApp
         run: |
-          echo "=== Full vendor/magento structure ==="
-          ls -R vendor/magento
+          echo "=== Search for all PHP files in vendor/magento ==="
+          find vendor/magento -type f -name "*.php" -ls
 
-          echo "=== Search for Magento.php files ==="
-          find vendor/magento -type f -name "*.php" | grep -i magento
+          echo "=== Full directory listing including hidden files ==="
+          ls -la vendor/magento
 
-          echo "=== MFTF Directory Structure ==="
-          ls -R vendor/magento/magento2-functional-testing-framework/
+          echo "=== Search for specific Magento stub patterns ==="
+          find . -type f -name "*stub*.php" -o -name "*Magento*.php" -ls
+
+          echo "=== Check MFTF specific paths ==="
+          ls -la vendor/magento/magento2-functional-testing-framework/src/Magento/FunctionalTestingFramework/_files/ || echo "Directory not found"
 
       - name: Run PHPStan for Static Analysis
         working-directory: SovendusApp
