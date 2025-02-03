@@ -6,8 +6,8 @@ parameters:
   bootstrapFiles:
     - %currentWorkingDirectory%/vendor/autoload.php
   
-  scanFiles:
-    - %currentWorkingDirectory%/stubs/magento.stub.php
+  scanDirectories:
+    - %currentWorkingDirectory%/vendor/magento/framework
 
   excludePaths:
     - vendor/*

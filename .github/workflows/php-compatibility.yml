@@ -65,19 +65,6 @@ jobs:
           PHPCS_PATH=$(composer global config bin-dir --absolute)/phpcs
           $PHPCS_PATH --standard=PHPCompatibility --runtime-set testVersion 7.0-7.0 --ignore=vendor/* . || exit 1
 
-      - name: Create Magento Stubs Directory
-        working-directory: SovendusApp
-        run: |
-          mkdir -p stubs
-          echo "<?php" > stubs/magento.stub.php
-          echo "// Auto-generated Magento stubs" >> stubs/magento.stub.php
-
-          # Process each interface file
-          find vendor/magento/framework -type f -name "*Interface.php" | while read file; do
-            # Extract PHP code only, remove XML/HTML docs
-            sed -n '/<?php/,${/^[[:space:]]*\*\|^[[:space:]]*\/\*\|^[[:space:]]*\/\//!p}' "$file" >> stubs/magento.stub.php
-          done
-
       - name: Run PHPStan for Static Analysis
         working-directory: SovendusApp
         run: |
