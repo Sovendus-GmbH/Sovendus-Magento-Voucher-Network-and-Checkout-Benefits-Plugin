@@ -27,5 +27,13 @@
     "psr-4": {
       "Sovendus\\SovendusApp\\": ""
     }
-  }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://repo.magento.com/"
+    }
+  ]
 }
