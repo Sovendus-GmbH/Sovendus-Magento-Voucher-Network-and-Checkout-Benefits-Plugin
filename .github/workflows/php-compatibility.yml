@@ -72,4 +72,4 @@ jobs:
       - name: Run PHPStan for Static Analysis
         working-directory: SovendusApp
         run: |
-          vendor/bin/phpstan analyse -c ../phpstan.neon || exit 1
+          vendor/bin/phpstan analyse -c phpstan.neon || exit 1

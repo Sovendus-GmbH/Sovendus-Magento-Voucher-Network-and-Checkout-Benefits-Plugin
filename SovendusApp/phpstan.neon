@@ -2,7 +2,7 @@ parameters:
   level: 5
   treatPhpDocTypesAsCertain: true
   paths:
-    - SovendusApp
+    - .
   bootstrapFiles:
     - %currentWorkingDirectory%/vendor/autoload.php
   
