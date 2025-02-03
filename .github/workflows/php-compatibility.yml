@@ -9,9 +9,6 @@ on:
 jobs:
   php_checks:
     runs-on: ubuntu-latest
-    env:
-      MAGENTO_PUBLIC_KEY: ${{ secrets.MAGENTO_PUBLIC_KEY }}
-      MAGENTO_PRIVATE_KEY: ${{ secrets.MAGENTO_PRIVATE_KEY }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -30,6 +27,9 @@ jobs:
         run: pwd
 
       - name: Check Magento Auth Keys
+        env:
+          MAGENTO_PUBLIC_KEY: ${{ secrets.MAGENTO_PUBLIC_KEY }}
+          MAGENTO_PRIVATE_KEY: ${{ secrets.MAGENTO_PRIVATE_KEY }}
         run: |
           if [ -z "${MAGENTO_PUBLIC_KEY}" ] || [ -z "${MAGENTO_PRIVATE_KEY}" ]; then
             echo "Magento authentication keys are not set."
@@ -38,6 +38,9 @@ jobs:
 
       - name: Setup Magento Auth and Install Magento2 Stubs
         working-directory: SovendusApp
+        env:
+          MAGENTO_PUBLIC_KEY: ${{ secrets.MAGENTO_PUBLIC_KEY }}
+          MAGENTO_PRIVATE_KEY: ${{ secrets.MAGENTO_PRIVATE_KEY }}
         run: |
           mkdir -p ~/.composer
           echo '{
