@@ -8,7 +8,7 @@ use Magento\Customer\Model\Address\Config as AddressConfig;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
 use Magento\Checkout\Model\Session;
-use Magento\Sales\Model\Order\Address;
+// use Magento\Sales\Model\Order\Address;
 
 class Order implements ArgumentInterface
 {
@@ -104,8 +104,8 @@ class Order implements ArgumentInterface
         $consumerSAddress = $order->getShippingAddress();
         $consumerBAddress = $order->getBillingAddress();
 
-        $consumerSData = ($consumerSAddress instanceof Address) ? $consumerSAddress->getData() : array();
-        $consumerBData = ($consumerBAddress instanceof Address) ? $consumerBAddress->getData() : array();
+        $consumerSData = ($consumerSAddress instanceof \Magento\Sales\Model\Order\Address) ? $consumerSAddress->getData() : array();
+        $consumerBData = ($consumerBAddress instanceof \Magento\Sales\Model\Order\Address) ? $consumerBAddress->getData() : array();
 
         $this->orderId = $order->getIncrementId();
 
@@ -114,7 +114,7 @@ class Order implements ArgumentInterface
         $taxValue = (float)$order->getBaseTaxAmount();
         $shippingTax = (float)$order->getBaseShippingTaxAmount();
         $shipping = (float)$order->getBaseShippingInclTax();
-        $this->orderValue = (string)($grosValue - $taxValue - $shipping + $shippingTax);
+        $this->orderValue = (float)($grosValue - $taxValue - $shipping + $shippingTax);
 
         $this->sessionId = "$this->orderId-$this->orderValue";
         $this->orderCurrency = $order->getOrderCurrencyCode();
