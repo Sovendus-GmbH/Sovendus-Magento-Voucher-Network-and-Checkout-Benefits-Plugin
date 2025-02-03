@@ -1,20 +1,12 @@
 parameters:
   level: 5
   paths:
-    - app/code/Sovendus/SovendusApp
     - SovendusApp
   bootstrapFiles:
-    # If you have a bootstrap file that loads Magento’s autoloader or any stubs, add it here.
     - %root%/vendor/autoload.php
   ignoreErrors:
-    - '#Class Magento\\.* not found#'
-    - '#Call to static method getInstance\(\) on an unknown class Magento\\Framework\\App\\ObjectManager#'
-    - '#Function getIntegrationType not found#'
-    - '#Class SettingsKeys not found#'
-    - '#Call to undefined method Sovendus\\\\SovendusApp\\\\Block\\\\Adminhtml\\\\System\\\\Config\\\\JsonConfig::getViewFileUrl\(\)#'
-    - '#Access to constant SCOPE_STORE on an unknown class Magento\\Store\\Model\\ScopeInterface#'
-    - '#Call to static method fromJson\(\) on an unknown class Sovendus_App_Settings#'
+
   
-  # Optionally, if you have stubs for Magento's interfaces/classes, tell PHPStan where to find them:
+  # Load Magento stubs from the installed package.
   scanFiles:
-    - %root%/stubs/magento.php
+    - %root%/vendor/magento/magento2-stubs/magento.stub.php

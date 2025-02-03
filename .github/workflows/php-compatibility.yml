@@ -20,6 +20,9 @@ jobs:
         with:
           submodules: true
 
+      - name: Install Magento Stubs
+        run: composer require --dev magento/magento2-stubs
+
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
