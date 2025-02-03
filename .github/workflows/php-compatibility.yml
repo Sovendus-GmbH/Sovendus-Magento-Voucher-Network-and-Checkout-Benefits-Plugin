@@ -65,20 +65,20 @@ jobs:
           PHPCS_PATH=$(composer global config bin-dir --absolute)/phpcs
           $PHPCS_PATH --standard=PHPCompatibility --runtime-set testVersion 7.0-7.0 --ignore=vendor/* . || exit 1
 
-      - name: Debug - Detailed Repository Search
+      - name: Debug - Search Magento Interfaces
         working-directory: SovendusApp
         run: |
-          echo "=== Search for all PHP files in vendor/magento ==="
-          find vendor/magento -type f -name "*.php" -ls
+          echo "=== Search for Magento interface definitions ==="
+          find vendor/magento/framework -type f -name "*.php" -exec grep -l "interface" {} \;
 
-          echo "=== Full directory listing including hidden files ==="
-          ls -la vendor/magento
+          echo "=== List framework directory structure ==="
+          ls -R vendor/magento/framework/
 
-          echo "=== Search for specific Magento stub patterns ==="
-          find . -type f -name "*stub*.php" -o -name "*Magento*.php" -ls
+          echo "=== Search for type definitions ==="
+          find vendor/magento -type f -name "*.php" -exec grep -l "\\@api" {} \;
 
-          echo "=== Check MFTF specific paths ==="
-          ls -la vendor/magento/magento2-functional-testing-framework/src/Magento/FunctionalTestingFramework/_files/ || echo "Directory not found"
+          echo "=== Check framework API files ==="
+          find vendor/magento/framework -type f -name "Api.php" -o -name "*Interface.php"
 
       - name: Run PHPStan for Static Analysis
         working-directory: SovendusApp
