@@ -8,7 +8,7 @@ on:
   pull_request:
     branches:
       - main
-      - dev
+      - develop
 
 jobs:
   php_checks:
@@ -29,6 +29,18 @@ jobs:
         run: |
           composer global require "squizlabs/php_codesniffer"
           composer global require "phpcompatibility/php-compatibility"
+
+          # Find PHPCS path
+          PHPCS_PATH=$(composer global config bin-dir --absolute)/phpcs
+          
+          # Find PHPCompatibility path
+          PHP_COMPATIBILITY_PATH=$(composer global config home)/vendor/phpcompatibility/php-compatibility
+
+          # Register PHPCompatibility with PHPCS
+          $PHPCS_PATH --config-set installed_paths $PHP_COMPATIBILITY_PATH
+
+          # Verify installation
+          $PHPCS_PATH -i
 
       - name: Run PHP 7.0 Compatibility Check
         run: |
