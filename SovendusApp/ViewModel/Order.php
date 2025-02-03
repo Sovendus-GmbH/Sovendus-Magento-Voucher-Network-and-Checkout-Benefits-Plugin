@@ -103,12 +103,12 @@ class Order implements ArgumentInterface
         $consumerSAddress = $order->getShippingAddress();
         $consumerBAddress = $order->getBillingAddress();
 
-        $consumerSData = $consumerSAddress ? $consumerSAddress->__toArray() : array();
-        $consumerBData = $consumerBAddress ? $consumerBAddress->__toArray() : array();
+        $consumerSData = $consumerSAddress ? $consumerSAddress->getData() : array();
+        $consumerBData = $consumerBAddress ? $consumerBAddress->getData() : array();
 
         $this->orderId = $order->getIncrementId();
 
-        $this->timestamp = (string)time();
+        $this->timestamp = strtotime($order->getCreatedAt());
         $grosValue = (float)$order->getGrandTotal();
         $taxValue = (float)$order->getBaseTaxAmount();
         $shippingTax = (float)$order->getBaseShippingTaxAmount();
@@ -123,30 +123,30 @@ class Order implements ArgumentInterface
         $this->consumerSalutation = $this->convertGenderToSalutation($gender);
         $this->consumerFirstName = $order->getCustomerFirstName();
         $this->consumerLastName = $order->getCustomerLastName();
-        if (isset($consumerSData["email"])) {
-            $this->consumerEmail = $consumerSData["email"];
-        } else if (isset($consumerBData["email"])) {
+        if (isset($consumerBData["email"])) {
             $this->consumerEmail = $consumerBData["email"];
+        } else if (isset($consumerSData["email"])) {
+            $this->consumerEmail = $consumerSData["email"];
         }
-        if (isset($consumerSData["telephone"])) {
-            $this->consumerPhone = $consumerSData["telephone"];
-        } else if (isset($consumerBData["telephone"])) {
+        if (isset($consumerBData["telephone"])) {
             $this->consumerPhone = $consumerBData["telephone"];
+        } else if (isset($consumerSData["telephone"])) {
+            $this->consumerPhone = $consumerSData["telephone"];
         }
-        if (isset($consumerSData["street"])) {
-            list($this->consumerStreet, $this->consumerStreetNumber) = $this->splitStreetAndStreetNumber($consumerSData["street"]);
-        } else if (isset($consumerBData["street"])) {
+        if (isset($consumerBData["street"])) {
             list($this->consumerStreet, $this->consumerStreetNumber) = $this->splitStreetAndStreetNumber($consumerBData["street"]);
+        } else if (isset($consumerSData["street"])) {
+            list($this->consumerStreet, $this->consumerStreetNumber) = $this->splitStreetAndStreetNumber($consumerSData["street"]);
         }
-        if (isset($consumerSData["postcode"])) {
-            $this->consumerZipcode = $consumerSData["postcode"];
-        } else if (isset($consumerBData["postcode"])) {
+        if (isset($consumerBData["postcode"])) {
             $this->consumerZipcode = $consumerBData["postcode"];
+        } else if (isset($consumerSData["postcode"])) {
+            $this->consumerZipcode = $consumerSData["postcode"];
         }
-        if (isset($consumerSData["city"])) {
-            $this->consumerCity = $consumerSData["city"];
-        } else if (isset($consumerBData["city"])) {
+        if (isset($consumerBData["city"])) {
             $this->consumerCity = $consumerBData["city"];
+        } else if (isset($consumerSData["city"])) {
+            $this->consumerCity = $consumerSData["city"];
         }
     }
 
