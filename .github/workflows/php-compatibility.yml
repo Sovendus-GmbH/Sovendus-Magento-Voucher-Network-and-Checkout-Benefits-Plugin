@@ -32,7 +32,7 @@ jobs:
 
           # Find PHPCS path
           PHPCS_PATH=$(composer global config bin-dir --absolute)/phpcs
-          
+
           # Find PHPCompatibility path
           PHP_COMPATIBILITY_PATH=$(composer global config home)/vendor/phpcompatibility/php-compatibility
 
@@ -54,7 +54,7 @@ jobs:
       - name: Install PHPStan for Static Analysis
         run: |
           composer require --dev phpstan/phpstan
-          vendor/bin/phpstan analyse --level=1 . || exit 1
+          vendor/bin/phpstan analyse -c phpstan.neon || exit 1
 
       - name: Upload PHPCompatibility Report if issues exist
         if: failure()

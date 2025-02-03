@@ -2,6 +2,7 @@
   "recommendations": [
     "dbaeumer.vscode-eslint",
     "streetsidesoftware.code-spell-checker",
-    "gruntfuggly.todo-tree"
+    "gruntfuggly.todo-tree",
+    "github.vscode-github-actions"
   ]
 }
