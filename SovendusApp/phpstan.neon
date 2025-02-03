@@ -6,5 +6,9 @@ parameters:
   bootstrapFiles:
     - %currentWorkingDirectory%/vendor/autoload.php
   
+  # Load Magento stubs from the installed package.
+  scanFiles:
+    - %currentWorkingDirectory%/vendor/magento/magento2-stubs/magento.stub.php
+
   excludePaths:
     - vendor/*
