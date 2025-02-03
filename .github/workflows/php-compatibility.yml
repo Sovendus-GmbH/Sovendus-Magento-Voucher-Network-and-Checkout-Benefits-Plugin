@@ -62,12 +62,8 @@ jobs:
       - name: Run PHP 7.0 Compatibility Check
         working-directory: SovendusApp
         run: |
-          ~/.composer/vendor/bin/phpcs --standard=PHPCompatibility --runtime-set testVersion 7.0-7.0 --ignore=vendor/* . || exit 1
-
-          - name: Lint PHP Files
-          working-directory: SovendusApp
-          run: |
-            find . -name "*.php" -print0 | xargs -0 -n1 php -l
+          PHPCS_PATH=$(composer global config bin-dir --absolute)/phpcs
+          $PHPCS_PATH --standard=PHPCompatibility --runtime-set testVersion 7.0-7.0 --ignore=vendor/* . || exit 1
 
       - name: Run PHPStan for Static Analysis
         working-directory: SovendusApp
