@@ -47,7 +47,8 @@ jobs:
             }
           }' > ~/.composer/auth.json
           composer config --no-plugins allow-plugins.magento/composer-dependency-version-audit-plugin true
-          composer require --dev magento/magento2-functional-testing-framework:"dev-master" phpstan/phpstan squizlabs/php_codesniffer phpcompatibility/php-compatibility --update-with-dependencies
+          composer config --no-plugins allow-plugins.cweagans/composer-patches true
+          composer require --dev magento/magento2-functional-testing-framework:"dev-master" phpstan/phpstan squizlabs/php_codesniffer phpcompatibility/php-compatibility bitexpert/phpstan-magento --update-with-dependencies
 
       - name: Install PHPCompatibility and PHP_CodeSniffer
         working-directory: SovendusApp
