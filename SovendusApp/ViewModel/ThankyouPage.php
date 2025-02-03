@@ -22,7 +22,7 @@ class ThankyouPage
     public static function get_thankyou_page_settings($block)
     {
 
-        /** @var $order_data Order */
+        /** @var \Sovendus\SovendusApp\ViewModel\Order $order_data */
         $order_data = $block->getData('view_model');
         if (!$order_data instanceof Order) {
             $order_data = ObjectManager::getInstance()->create(Order::class);

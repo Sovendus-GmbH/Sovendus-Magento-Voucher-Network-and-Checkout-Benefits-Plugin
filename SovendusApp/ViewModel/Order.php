@@ -14,22 +14,23 @@ class Order implements ArgumentInterface
     /**
      * @var string|null
      */
-    /**
-     * @var string|null
-     */
     public $orderId;
+
     /**
-     * @var string|null
+     * @var int|null
      */
     public $timestamp;
+
     /**
      * @var string|null
      */
     public $sessionId;
+
     /**
-     * @var string|null
+     * @var float|null
      */
     public $orderValue;
+
     /**
      * @var string|null
      */
@@ -99,26 +100,27 @@ class Order implements ArgumentInterface
     public function initializeOrderData()
     {
         $order = $this->getorder();
-        $consumerSData = $order->getShippingAddress()->getData();
-        $consumerBData = $order->getBillingAddress()->getData();
+        $consumerSAddress = $order->getShippingAddress();
+        $consumerBAddress = $order->getBillingAddress();
+
+        $consumerSData = $consumerSAddress ? $consumerSAddress->__toArray() : array();
+        $consumerBData = $consumerBAddress ? $consumerBAddress->__toArray() : array();
+
         $this->orderId = $order->getIncrementId();
-        if (isset($consumerBData["country_id"])) {
-            $this->consumerCountry = $consumerBData["country_id"];
-        } else if (isset($consumerSData["country_id"])) {
-            $this->consumerCountry = $consumerSData["country_id"];
-        }
-        $this->timestamp = time();
-        $grosValue = (float) $order->getGrandTotal();
-        $taxValue = (float) $order->getBaseTaxAmount();
-        $shippingTax = (float) $order->getBaseShippingTaxAmount();
-        $shipping = (float) $order->getBaseShippingInclTax();
-        $this->orderValue = $grosValue - $taxValue - $shipping + $shippingTax;
+
+        $this->timestamp = (string)time();
+        $grosValue = (float)$order->getGrandTotal();
+        $taxValue = (float)$order->getBaseTaxAmount();
+        $shippingTax = (float)$order->getBaseShippingTaxAmount();
+        $shipping = (float)$order->getBaseShippingInclTax();
+        $this->orderValue = (string)($grosValue - $taxValue - $shipping + $shippingTax);
+
         $this->sessionId = "$this->orderId-$this->orderValue";
         $this->orderCurrency = $order->getOrderCurrencyCode();
         $usedCouponCode = $order->getCouponCode();
         $this->usedCouponCodes = $usedCouponCode ? [$usedCouponCode] : [];
-        // TODO
-        $this->consumerSalutation = $order->getCustomerGender();
+        $gender = $order->getCustomerGender();
+        $this->consumerSalutation = $this->convertGenderToSalutation($gender);
         $this->consumerFirstName = $order->getCustomerFirstName();
         $this->consumerLastName = $order->getCustomerLastName();
         if (isset($consumerSData["email"])) {
@@ -154,6 +156,25 @@ class Order implements ArgumentInterface
     function getorder()
     {
         return $this->checkoutSession->getLastRealOrder();
+    }
+
+    /**
+     * Convert Magento gender code to salutation string
+     * 
+     * @param int|null $genderCode
+     * @return string|null
+     */
+    private function convertGenderToSalutation(?int $genderCode): ?string
+    {
+        if ($genderCode === null) {
+            return null;
+        }
+
+        return match ($genderCode) {
+            1 => 'Mr.',
+            2 => 'Mrs.',
+            default => null
+        };
     }
 
     /**
