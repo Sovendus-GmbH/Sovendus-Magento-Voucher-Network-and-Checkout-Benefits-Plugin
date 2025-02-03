@@ -47,8 +47,7 @@ jobs:
             }
           }' > ~/.composer/auth.json
           composer config --no-plugins allow-plugins.magento/composer-dependency-version-audit-plugin true
-          composer config --no-plugins allow-plugins.cweagans/composer-patches true
-          composer require --dev magento/magento2-functional-testing-framework:"dev-master" phpstan/phpstan squizlabs/php_codesniffer phpcompatibility/php-compatibility bitexpert/phpstan-magento --update-with-dependencies
+          composer require --dev magento/magento2-functional-testing-framework:"dev-master" phpstan/phpstan squizlabs/php_codesniffer phpcompatibility/php-compatibility --update-with-dependencies
 
       - name: Install PHPCompatibility and PHP_CodeSniffer
         working-directory: SovendusApp
@@ -65,6 +64,18 @@ jobs:
         run: |
           PHPCS_PATH=$(composer global config bin-dir --absolute)/phpcs
           $PHPCS_PATH --standard=PHPCompatibility --runtime-set testVersion 7.0-7.0 --ignore=vendor/* . || exit 1
+
+      - name: Debug - List Repository Structure
+        working-directory: SovendusApp
+        run: |
+          echo "=== Full vendor/magento structure ==="
+          ls -R vendor/magento
+
+          echo "=== Search for Magento.php files ==="
+          find vendor/magento -type f -name "*.php" | grep -i magento
+
+          echo "=== MFTF Directory Structure ==="
+          ls -R vendor/magento/magento2-functional-testing-framework/
 
       - name: Run PHPStan for Static Analysis
         working-directory: SovendusApp
