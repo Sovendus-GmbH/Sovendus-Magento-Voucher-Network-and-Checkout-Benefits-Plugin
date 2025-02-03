@@ -119,6 +119,13 @@ class Order implements ArgumentInterface
         $this->orderCurrency = $order->getOrderCurrencyCode();
         $usedCouponCode = $order->getCouponCode();
         $this->usedCouponCodes = $usedCouponCode ? [$usedCouponCode] : [];
+
+
+        $this->consumerCountry = $consumerBAddress ?
+            $consumerBAddress->getCountryId() : ($consumerSAddress ?
+                $consumerSAddress->getCountryId() :
+                ''
+            );
         $gender = $order->getCustomerGender();
         $this->consumerSalutation = $this->convertGenderToSalutation($gender);
         $this->consumerFirstName = $order->getCustomerFirstName();
