@@ -54,7 +54,7 @@ jobs:
       - name: Install PHPStan for Static Analysis
         run: |
           composer require --dev phpstan/phpstan
-          vendor/bin/phpstan analyse --root=. -c phpstan.neon || exit 1
+          vendor/bin/phpstan analyse -c phpstan.neon || exit 1
 
       - name: Upload PHPCompatibility Report if issues exist
         if: failure()
