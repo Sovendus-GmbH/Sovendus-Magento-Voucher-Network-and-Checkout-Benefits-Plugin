@@ -15,8 +15,7 @@
   "type": "magento2-module",
   "version": "2.0.0-beta-2",
   "require": {
-    "magento/framework": ">=102.0.0",
-    "magento/magento2-stubs": "dev-master"
+    "magento/framework": ">=102.0.0"
   },
   "license": [
     "GPL-3.0"
@@ -35,7 +34,9 @@
       "url": "https://repo.magento.com/"
     }
   ],
-  "require-dev": {},
+  "require-dev": {
+    "magento/magento2-functional-testing-framework": "dev-master"
+  },
   "minimum-stability": "dev",
   "prefer-stable": true
 }
