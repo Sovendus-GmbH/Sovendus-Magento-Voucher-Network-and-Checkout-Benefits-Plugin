@@ -48,7 +48,7 @@ class Config implements ConfigInterface
             \SETTINGS_KEYS
         );
         // TODO handle custom hooks
-        $settings->voucherNetwork->iframeContainerId = " .page.messages";
+        $settings->voucherNetwork->iframeContainerId = ".page.messages";
 
         return json_encode($settings);
     }
