@@ -6,9 +6,11 @@ parameters:
   bootstrapFiles:
     - %currentWorkingDirectory%/vendor/autoload.php
   
-  # Use alternative path for Magento stubs.
+  # Use bitexpert/phpstan-magento stubs
   scanFiles:
-    - %currentWorkingDirectory%/vendor/magento/magento2-functional-testing-framework/_files/Magento.php
+    - %currentWorkingDirectory%/vendor/bitexpert/phpstan-magento/stubs/Magento/Framework.stub
+    - %currentWorkingDirectory%/vendor/bitexpert/phpstan-magento/stubs/Magento/Store.stub
+    - %currentWorkingDirectory%/vendor/bitexpert/phpstan-magento/stubs/Magento/Config.stub
 
   excludePaths:
     - vendor/*
