@@ -18,7 +18,7 @@ jobs:
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: "7.4"
+          php-version: "8.2"
           tools: composer, phpcs, phpstan
           coverage: none
 
@@ -34,7 +34,6 @@ jobs:
           fi
 
       - name: Setup Magento Auth and Install Magento2 Stubs
-        working-directory: SovendusApp
         run: |
           mkdir -p ~/.composer
           echo '{
@@ -45,7 +44,7 @@ jobs:
               }
             }
           }' > ~/.composer/auth.json
-          composer require --dev magento/magento2-stubs:"dev-master" --update-with-dependencies
+          composer require --dev magento/magento2-functional-testing-framework:"dev-master" --update-with-dependencies
 
       - name: Install PHPCompatibility and PHP_CodeSniffer
         working-directory: SovendusApp
