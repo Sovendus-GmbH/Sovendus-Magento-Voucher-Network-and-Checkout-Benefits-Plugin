@@ -164,17 +164,19 @@ class Order implements ArgumentInterface
      * @param int|null $genderCode
      * @return string|null
      */
-    private function convertGenderToSalutation(?int $genderCode): ?string
+    private function convertGenderToSalutation($genderCode)
     {
         if ($genderCode === null) {
             return null;
         }
-
-        return match ($genderCode) {
-            1 => 'Mr.',
-            2 => 'Mrs.',
-            default => null
-        };
+        switch ($genderCode) {
+            case 1:
+                return 'Mr.';
+            case 2:
+                return 'Mrs.';
+            default:
+                return null;
+        }
     }
 
     /**
