@@ -21,7 +21,10 @@ jobs:
           submodules: true
 
       - name: Install Magento Stubs
-        run: composer require --dev magento/magento2-stubs
+        run: |
+          cd SovendusApp
+          composer require --dev magento/magento2-stubs
+          cd ..
 
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
