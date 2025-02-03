@@ -26,11 +26,19 @@ jobs:
         working-directory: SovendusApp
         run: pwd
 
-      - name: Configure Magento Auth
+      - name: Setup Magento Auth
         working-directory: SovendusApp
         run: |
-          composer config http-basic.repo.magento.com "${{ secrets.MAGENTO_PUBLIC_KEY }}" "${{ secrets.MAGENTO_PRIVATE_KEY }}"
-          composer install
+          mkdir -p ~/.composer
+          echo '{
+            "http-basic": {
+              "repo.magento.com": {
+                "username": "${{ secrets.MAGENTO_PUBLIC_KEY }}",
+                "password": "${{ secrets.MAGENTO_PRIVATE_KEY }}"
+              }
+            }
+          }' > ~/.composer/auth.json
+
       - name: Configure Composer (Dev/Install)
         working-directory: SovendusApp
         run: |
