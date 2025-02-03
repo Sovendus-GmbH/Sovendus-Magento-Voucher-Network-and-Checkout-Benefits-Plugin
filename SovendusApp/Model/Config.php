@@ -62,7 +62,7 @@ class Config implements ConfigInterface
         $decodedConfig = json_decode($config, true);
         $validated_settings = \Sovendus_App_Settings::fromJson($decodedConfig);
 
-        $this->configWriter->save(\SETTINGS_KEYS->newSettingsKey, json_encode($validated_settings));
+        $this->configWriter->save(SETTINGS_KEYS->newSettingsKey, json_encode($validated_settings));
         $this->flushCache();
         return ['success' => true];
     }
