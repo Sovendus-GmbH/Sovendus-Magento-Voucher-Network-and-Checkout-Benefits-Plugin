@@ -57,6 +57,7 @@ jobs:
 
       - name: Install Magento2 Stubs
         run: |
+          cd SovendusApp
           composer require --dev magento/magento2-stubs:"dev-master" --update-with-dependencies
 
       - name: Run PHP 7.0 Compatibility Check
