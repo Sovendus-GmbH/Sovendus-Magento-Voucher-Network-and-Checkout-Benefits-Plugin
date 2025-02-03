@@ -5,7 +5,7 @@ namespace Sovendus\SovendusApp;
 require_once __DIR__ . '/sovendus-plugins-commons/settings/get-settings-helper.php';
 
 define(constant_name: 'PLUGIN_NAME', value: 'magento');
-define('SOVENDUS_VERSION', '2.0.0-beta');
+define('SOVENDUS_VERSION', '2.0.0-beta-2');
 
 define(constant_name: 'SETTINGS_KEYS', value: new \SettingsKeys(
     active_value: 1,
