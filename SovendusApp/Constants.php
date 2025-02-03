@@ -16,5 +16,5 @@ define(constant_name: 'SETTINGS_KEYS', value: new \SettingsKeys(
     trafficMediumNumber: "sovendusvouchernetwork/{country}_settings/{country}_traffic_medium_number",
     multiLangCountryActive: "sovendusvouchernetwork/{country}_{lang}_settings/{country}_{lang}_enable",
     multiLangCountryTrafficSourceNumber: "sovendusvouchernetwork/{country}_{lang}_settings/{country}_{lang}_traffic_source_number",
-    multiLangCountryTrafficMediumNumber: "sovendusvouchernetwork/{country}_{lang}_settings/{country}_{lang}_traffic_medium_number",
+    multiLangCountryTrafficMediumNumber: "sovendusvouchernetwork/{country}_{lang}_settings/{country}_{lang}_traffic_medium_number"
 ));

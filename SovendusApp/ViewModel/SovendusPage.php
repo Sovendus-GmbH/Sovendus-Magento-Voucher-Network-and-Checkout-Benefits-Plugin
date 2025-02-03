@@ -17,20 +17,20 @@ class SovendusPage
      */
     public static function get_sovendus_page_settings()
     {
-        [$language, $country] = detectLanguage();
+        list[$language, $country] = detectLanguage();
         $objectManager = ObjectManager::getInstance();
         $configModel = $objectManager->get(Config::class);
         $encoded_settings = $configModel->getConfig();
         $integrationType = getIntegrationType(pluginName: \PLUGIN_NAME, pluginVersion: \SOVENDUS_VERSION);
         return <<<EOD
-        <script>
-            var sovPageConfig = {
-                'settings': JSON.parse('$encoded_settings'),
-                'integrationType': "$integrationType",
-                'country': "$country",
-                'language': "$language",
-            };
-        </script>
-        EOD;
+            <script>
+                var sovPageConfig = {
+                    'settings': JSON.parse('$encoded_settings'),
+                    'integrationType': "$integrationType",
+                    'country': "$country",
+                    'language': "$language",
+                };
+            </script>
+    EOD;
     }
 }

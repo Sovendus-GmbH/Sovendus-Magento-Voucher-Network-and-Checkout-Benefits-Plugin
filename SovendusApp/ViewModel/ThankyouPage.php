@@ -58,6 +58,6 @@ class ThankyouPage
                     "consumerLanguage": "$language",
                 };
             </script>
-        EOD;
+EOD;
     }
 }
