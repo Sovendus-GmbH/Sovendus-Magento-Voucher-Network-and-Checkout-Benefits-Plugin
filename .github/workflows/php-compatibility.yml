@@ -1,0 +1,99 @@
+name: PHP Compatibility
+
+on:
+  push:
+    branches: ["main", "dev"]
+  pull_request:
+    branches: ["main", "dev"]
+
+jobs:
+  php_checks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          tools: composer, phpcs, phpstan
+          coverage: none
+
+      - name: Switch to SovendusApp
+        working-directory: SovendusApp
+        run: pwd
+
+      - name: Check Magento Auth Keys
+        working-directory: SovendusApp
+        run: |
+          if [ -z "${{ secrets.MAGENTO_PUBLIC_KEY }}" ] || [ -z "${{ secrets.MAGENTO_PRIVATE_KEY }}" ]; then
+            echo "Magento authentication keys are not set."
+            exit 1
+          fi
+
+      - name: Setup Magento Auth and Install Dependencies
+        working-directory: SovendusApp
+        run: |
+          mkdir -p ~/.composer
+          echo '{
+            "http-basic": {
+              "repo.magento.com": {
+                "username": "${{ secrets.MAGENTO_PUBLIC_KEY }}",
+                "password": "${{ secrets.MAGENTO_PRIVATE_KEY }}"
+              }
+            }
+          }' > ~/.composer/auth.json
+          composer config --no-plugins allow-plugins.magento/composer-dependency-version-audit-plugin true
+          composer require --dev magento/magento2-functional-testing-framework:"dev-master" phpstan/phpstan squizlabs/php_codesniffer phpcompatibility/php-compatibility --update-with-dependencies
+
+      - name: Install PHPCompatibility and PHP_CodeSniffer
+        working-directory: SovendusApp
+        run: |
+          composer global require "squizlabs/php_codesniffer"
+          composer global require "phpcompatibility/php-compatibility"
+          PHPCS_PATH=$(composer global config bin-dir --absolute)/phpcs
+          PHP_COMPATIBILITY_PATH=$(composer global config home)/vendor/phpcompatibility/php-compatibility
+          $PHPCS_PATH --config-set installed_paths $PHP_COMPATIBILITY_PATH
+          $PHPCS_PATH -i
+
+      - name: Run PHP 7.0 Compatibility Check
+        working-directory: SovendusApp
+        run: |
+          PHPCS_PATH=$(composer global config bin-dir --absolute)/phpcs
+          $PHPCS_PATH --standard=PHPCompatibility --runtime-set testVersion 7.0-7.0 --ignore=vendor/* . || exit 1
+
+      - name: Create PHPStan bootstrap
+        working-directory: SovendusApp
+        run: |
+          mkdir -p dev
+          cat > dev/phpstan-bootstrap.php << 'EOF'
+          <?php
+          require_once __DIR__ . '/../vendor/autoload.php';
+
+          // Initialize Magento autoloader
+          $vendorDir = require __DIR__ . '/../vendor/autoload.php';
+
+          // Register standard Magento paths
+          $paths = [
+              'Magento\\Framework\\' => __DIR__ . '/../vendor/magento/framework/',
+              'Magento\\Store\\' => __DIR__ . '/../vendor/magento/module-store/',
+              'Magento\\Sales\\' => __DIR__ . '/../vendor/magento/module-sales/',
+              'Magento\\Checkout\\' => __DIR__ . '/../vendor/magento/module-checkout/',
+              'Magento\\Config\\' => __DIR__ . '/../vendor/magento/module-config/'
+          ];
+
+          // Register paths with Composer autoloader
+          $loader = new \Composer\Autoload\ClassLoader();
+          foreach ($paths as $namespace => $path) {
+              $loader->addPsr4($namespace, $path);
+          }
+          $loader->register();
+          EOF
+
+      - name: Run PHPStan for Static Analysis
+        working-directory: SovendusApp
+        run: |
+          vendor/bin/phpstan analyse --memory-limit=2G -c phpstan.neon || exit 1

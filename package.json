@@ -1,0 +1,33 @@
+{
+    "name": "sovendus_app_magento",
+    "version": "2.0.0",
+    "description": "Sovendus App Magento",
+    "private": true,
+    "scripts": {
+        "setup": "yarn install && cd SovendusApp/sovendus-plugins-commons && yarn install",
+        "build:prod": "yarn build && yarn copy-build && yarn zip-builds && rm -rf dist",
+        "build": "cd SovendusApp/sovendus-plugins-commons && yarn build -bp ../view/adminhtml/web/js -fp ../view/frontend/web/js",
+        "copy-build": "mkdir -p dist && rsync -av SovendusApp/ dist/SovendusApp/  --exclude sovendus-plugins-commons/builder --exclude sovendus-plugins-commons/.vscode --exclude 'sovendus-plugins-commons/node_modules' --exclude sovendus-plugins-commons/.gitignore --exclude sovendus-plugins-commons/.eslintrc.json --exclude sovendus-plugins-commons/.git",
+        "zip-builds": "zip-build dist releases -o -t %NAME%_%VERSION%.%EXT% && zip-build dist releases -o -t %NAME%_latest.%EXT%",
+        "lint": "eslint **/*.ts --no-ignore --fix"
+    },
+    "dependencies": {
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0"
+    },
+    "devDependencies": {
+        "@types/eslint": "9.6.1",
+        "@types/react": "^19.0.8",
+        "@types/react-dom": "^19.0.3",
+        "eslint": "8.57.0",
+        "eslint-config-prettier": "10.0.1",
+        "prettier-eslint": "^16.3.0",
+        "typescript": "5.7.3",
+        "zip-build": "^1.8.0",
+        "eslint-plugin-import": "2.31.0",
+        "eslint-plugin-prettier": "5.2.3",
+        "eslint-plugin-simple-import-sort": "12.1.1",
+        "eslint-plugin-unused-imports": "4.1.4",
+        "typescript-eslint": "8.21.0"
+    }
+}

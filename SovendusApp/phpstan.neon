@@ -1,0 +1,17 @@
+parameters:
+  level: 5
+  treatPhpDocTypesAsCertain: true
+  paths:
+    - .
+  bootstrapFiles:
+    - dev/phpstan-bootstrap.php
+  
+  scanDirectories:
+    - %currentWorkingDirectory%/vendor/magento/framework
+    - %currentWorkingDirectory%/vendor/magento/module-store
+    - %currentWorkingDirectory%/vendor/magento/module-sales
+    - %currentWorkingDirectory%/vendor/magento/module-checkout
+    - %currentWorkingDirectory%/vendor/magento/module-config
+
+  excludePaths:
+    - vendor/*
