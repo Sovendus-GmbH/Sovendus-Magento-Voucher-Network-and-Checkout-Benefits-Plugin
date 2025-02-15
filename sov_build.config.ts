@@ -1,4 +1,4 @@
-import { BuildConfig } from "sovendus-builder";
+import type { BuildConfig } from "sovendus-builder";
 
 const buildConfig: BuildConfig = {
   filesToCompile: [
@@ -9,15 +9,15 @@ const buildConfig: BuildConfig = {
     },
     {
       input:
-        "SovendusApp/sovendus-plugins-commons/page-scripts/landing-page/sovendus-page.ts",
+        "node_modules/sovendus-plugins-commons/page-scripts/landing-page/sovendus-page.ts",
       output: "SovendusApp/view/frontend/web/js/sovendus-page.js",
-      options: { type: "vanilla-ts" },
+      options: { type: "vanilla" },
     },
     {
       input:
-        "SovendusApp/sovendus-plugins-commons/page-scripts/thankyou-page/thankyou-page.ts",
+        "node_modules/sovendus-plugins-commons/page-scripts/thankyou-page/thankyou-page.ts",
       output: "SovendusApp/view/frontend/web/js/thankyou-page.js",
-      options: { type: "vanilla-ts" },
+      options: { type: "vanilla" },
     },
   ],
 };
