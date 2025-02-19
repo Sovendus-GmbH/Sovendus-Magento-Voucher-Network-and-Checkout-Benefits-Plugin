@@ -1,5 +1,7 @@
 <?php
 
+namespace Sovendus\SovendusApp\ViewModel;
+
 use Magento\Framework\App\ObjectManager;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Store\Model\ScopeInterface;
