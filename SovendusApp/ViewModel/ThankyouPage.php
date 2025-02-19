@@ -4,14 +4,13 @@ namespace Sovendus\SovendusApp\ViewModel;
 
 use Magento\Framework\App\ObjectManager;
 use Sovendus\SovendusApp\Model\Config;
-use Sovendus\SovendusApp\ViewModel\Order;
 use Magento\Framework\View\Element\Template;
 
 
 require_once __DIR__ . '/../sovendus-plugins-commons/settings/get-settings-helper.php';
 require_once __DIR__ . '/../sovendus-plugins-commons/helpers/integration-data-helpers.php';
 require_once __DIR__ . '/../Constants.php';
-require_once __DIR__ . '/helper.php';
+require_once __DIR__ . '/Helper.php';
 
 class ThankyouPage
 {

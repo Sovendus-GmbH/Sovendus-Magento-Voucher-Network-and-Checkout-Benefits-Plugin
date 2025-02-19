@@ -2,7 +2,7 @@
 
 namespace Sovendus\SovendusApp\Model;
 
-use Sovendus\SovendusApp\Api\ConfigInterface;
+use Sovendus\SovendusApp\Model\ConfigInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\Config\Storage\WriterInterface;
 use Magento\Framework\App\Cache\TypeListInterface;

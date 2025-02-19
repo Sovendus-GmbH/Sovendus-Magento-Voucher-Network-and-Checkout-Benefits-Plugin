@@ -2,10 +2,10 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
 	<body>
 		<referenceContainer name="before.body.end">
-			<block class="Magento\Framework\View\Element\Js\Components" name="sovendus.js.before_body_end" as="sovendus_js" template="Sovendus_SovendusApp::success.phtml">
+			<block class="Magento\Framework\View\Element\Js\Components" name="sovendus_thankyou_block" as="sovendus_thankyou_block" template="Sovendus_SovendusApp::thankyou_page.phtml">
 				<arguments>
 					<argument name="view_model" xsi:type="object">
-						Sovendus\SovendusApp\ViewModel\Order
+						Sovendus\SovendusApp\Model\Order
 					</argument>
 				</arguments>
 			</block>

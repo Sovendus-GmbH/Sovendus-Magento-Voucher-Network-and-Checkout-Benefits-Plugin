@@ -2,7 +2,7 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
 	<body>
 		<referenceContainer name="before.body.end">
-			<block class="Magento\Framework\View\Element\Template" name="sovendus_script_block" template="Sovendus_SovendusApp::sovendus_script.phtml" />
+			<block class="Magento\Framework\View\Element\Template" name="sovendus_page_block" as="sovendus_page_block" template="Sovendus_SovendusApp::page.phtml" />
 		</referenceContainer>
 	</body>
 </page>
