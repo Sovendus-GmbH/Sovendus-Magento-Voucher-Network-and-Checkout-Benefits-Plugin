@@ -5,34 +5,39 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "build:prod": "yarn build && yarn copy-build && yarn zip-builds && rm -rf dist",
+        "setup": "yarn install && git submodule update --init --recursive",
+        "dev": "yarn build && ./dev/start-test-docker.sh",
         "build": "sovendus-builder build",
-        "copy-build": "mkdir -p dist && rsync -av SovendusApp/ dist/SovendusApp/  --exclude sovendus-plugins-commons/builder --exclude sovendus-plugins-commons/.vscode --exclude 'sovendus-plugins-commons/node_modules' --exclude sovendus-plugins-commons/.gitignore --exclude sovendus-plugins-commons/.eslintrc.json --exclude sovendus-plugins-commons/.git",
-        "zip-builds": "zip-build dist releases -o -t %NAME%_%VERSION%.%EXT% && zip-build dist releases -o -t %NAME%_latest.%EXT%",
-        "lint": "eslint **/*.ts --no-ignore --fix"
+        "lint": "eslint --fix",
+        "test": "# todo",
+        "pub": "sovendus-release-tool"
     },
     "dependencies": {
-        "react": "^19.0.0",
-        "react-dom": "^19.0.0",
-        "sovendus-integration-scripts": "3.3.10",
-        "sovendus-integration-settings-ui": "3.3.8",
-        "sovendus-integration-types": "3.3.7"
+        "react": "^19.1.0",
+        "react-dom": "^19.1.0",
+        "sovendus-integration-scripts": "^3.11.13",
+        "sovendus-integration-settings-ui": "^4.3.21",
+        "sovendus-integration-types": "^3.8.14"
     },
     "devDependencies": {
         "@types/eslint": "9.6.1",
-        "@types/react": "^19.0.10",
-        "@types/react-dom": "^19.0.4",
-        "eslint": "8.57.0",
-        "eslint-config-prettier": "10.0.1",
+        "@types/react": "19.1.2",
+        "@types/react-dom": "19.1.3",
+        "@typescript-eslint/eslint-plugin": "8.31.1",
+        "@typescript-eslint/parser": "8.31.1",
+        "eslint": "9.26.0",
+        "eslint-config-prettier": "10.1.2",
         "eslint-plugin-import": "2.31.0",
-        "eslint-plugin-prettier": "5.2.3",
+        "eslint-plugin-prettier": "5.4.0",
+        "eslint-plugin-react-compiler": "19.1.0-rc.1",
+        "eslint-plugin-react-hooks": "5.2.0",
         "eslint-plugin-simple-import-sort": "12.1.1",
         "eslint-plugin-unused-imports": "4.1.4",
-        "prettier": "^3.5.1",
-        "prettier-eslint": "^16.3.0",
-        "sovendus-builder": "1.1.13",
-        "typescript": "5.7.3",
-        "typescript-eslint": "8.24.1",
-        "zip-build": "^1.8.0"
+        "prettier": "3.5.3",
+        "prettier-eslint": "16.4.1",
+        "prettier-plugin-sort-json": "4.1.1",
+        "sovendus-builder": "1.5.0",
+        "sovendus-release-tool": "^1.5.2",
+        "typescript": "5.8.3"
     }
 }

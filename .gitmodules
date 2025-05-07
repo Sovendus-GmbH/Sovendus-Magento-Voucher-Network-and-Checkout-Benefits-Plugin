@@ -1,0 +1,3 @@
+[submodule "dev/magento-docker-testing-instance"]
+	path = dev/magento-docker-testing-instance
+	url = https://github.com/Sovendus-GmbH/magento-docker-testing-instance
