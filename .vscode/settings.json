@@ -1,22 +1,33 @@
 {
-  "cSpell.words": ["Magento"],
+  "cSpell.words": [
+    "sovendus"
+  ],
   "editor.formatOnSave": true, // Format files on save
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit",
-    "source.organizeImports": "never"
+    "source.fixAll.eslint": "explicit"
   },
+  "eslint.format.enable": true,
   "eslint.validate": [
     "javascript",
     "javascriptreact",
     "typescript",
     "typescriptreact"
   ],
+  "prettier.enable": false,
+  "typescript.validate.enable": true,
+  "typescript.suggest.autoImports": true,
   "prettier.requireConfig": true, // Ensure Prettier uses your configuration file
-  "files.eol": "\n",
-  "files.exclude": {
-    "SovendusApp/sovendus-plugins-commons/node_modules": true
+  "[typescript]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit"
+    },
+    "editor.formatOnSave": false
   },
-  "search.exclude": {
-    "SovendusApp/sovendus-plugins-commons/node_modules": true
-  }
+  "[typescriptreact]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit"
+    },
+    "editor.formatOnSave": false
+  },
+  "files.eol": "\n"
 }
