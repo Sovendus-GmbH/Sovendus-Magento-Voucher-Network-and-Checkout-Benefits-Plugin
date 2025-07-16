@@ -1,6 +1,5 @@
-dist
 node_modules
-SovendusApp/sovendus-plugins-commons/node_modules
-
+dev/magento-docker-testing-instance/src
 SovendusApp/view/frontend/web/js
 SovendusApp/view/adminhtml/web/js
+dev/logs

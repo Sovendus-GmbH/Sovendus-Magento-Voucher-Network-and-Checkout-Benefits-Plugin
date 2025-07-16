@@ -1,6 +1,6 @@
 <?php
 
-namespace Sovendus\SovendusApp\Model;
+namespace Sovendus\SovendusApp\Api;
 
 interface ConfigInterface
 {
