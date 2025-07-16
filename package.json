@@ -16,7 +16,7 @@
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "sovendus-integration-scripts": "^3.11.15",
-    "sovendus-integration-settings-ui": "^4.3.24",
+    "sovendus-integration-settings-ui": "^4.3.25",
     "sovendus-integration-types": "^3.8.14"
   },
   "devDependencies": {
