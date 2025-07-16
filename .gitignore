@@ -1,5 +1,7 @@
 node_modules
 dev/magento-docker-testing-instance/src
-SovendusApp/view/frontend/web/js
-SovendusApp/view/adminhtml/web/js
+SovendusApp/view/frontend/web/js/*.js
+SovendusApp/view/frontend/web/js/*.js.map
+SovendusApp/view/adminhtml/web/js/*.js
+SovendusApp/view/adminhtml/web/js/*.js.map
 dev/logs
