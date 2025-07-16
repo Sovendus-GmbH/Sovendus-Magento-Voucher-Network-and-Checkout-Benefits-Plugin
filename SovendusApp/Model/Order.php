@@ -1,11 +1,7 @@
 <?php
 
-namespace Sovendus\SovendusApp\ViewModel;
+namespace Sovendus\SovendusApp\Model;
 
-use Sovendus\SovendusApp\Model\Config;
-use Magento\Cms\Model\Template\FilterProvider;
-use Magento\Customer\Model\Address\Config as AddressConfig;
-use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
 use Magento\Checkout\Model\Session;
 
@@ -16,10 +12,6 @@ class Order implements ArgumentInterface
      */
     public $orderId;
 
-    /**
-     * @var int|null
-     */
-    public $timestamp;
 
     /**
      * @var string|null
@@ -62,11 +54,7 @@ class Order implements ArgumentInterface
     /**
      * @var string|null
      */
-    public $consumerStreet;
-    /**
-     * @var string|null
-     */
-    public $consumerStreetNumber;
+    public $consumerStreetWithNumber;
     /**
      * @var string|null
      */
@@ -108,7 +96,6 @@ class Order implements ArgumentInterface
 
         $this->orderId = $order->getIncrementId();
 
-        $this->timestamp = strtotime($order->getCreatedAt());
         $grosValue = (float)$order->getGrandTotal();
         $taxValue = (float)$order->getBaseTaxAmount();
         $shippingTax = (float)$order->getBaseShippingTaxAmount();
@@ -141,9 +128,9 @@ class Order implements ArgumentInterface
             $this->consumerPhone = $consumerSData["telephone"];
         }
         if (isset($consumerBData["street"])) {
-            list($this->consumerStreet, $this->consumerStreetNumber) = $this->splitStreetAndStreetNumber($consumerBData["street"]);
+            $this->consumerStreetWithNumber = $consumerBData["street"];
         } else if (isset($consumerSData["street"])) {
-            list($this->consumerStreet, $this->consumerStreetNumber) = $this->splitStreetAndStreetNumber($consumerSData["street"]);
+            $this->consumerStreetWithNumber = $consumerSData["street"];
         }
         if (isset($consumerBData["postcode"])) {
             $this->consumerZipcode = $consumerBData["postcode"];
@@ -183,22 +170,6 @@ class Order implements ArgumentInterface
                 return 'Mrs.';
             default:
                 return null;
-        }
-    }
-
-    /**
-     * @param string $street
-     * @return array
-     */
-    function splitStreetAndStreetNumber($street)
-    {
-        if ((strlen($street) > 0) && preg_match_all('#([0-9/ -]+ ?[a-zA-Z]?(\s|$))#', trim($street), $match)) {
-            $housenr = end($match[0]);
-            $consumerStreet = trim(str_replace(array($housenr, '/'), '', $street));
-            $consumerStreetNumber = trim($housenr);
-            return array($consumerStreet, $consumerStreetNumber);
-        } else {
-            return array($street, "");
         }
     }
 }

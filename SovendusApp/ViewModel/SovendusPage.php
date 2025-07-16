@@ -4,11 +4,10 @@ namespace Sovendus\SovendusApp\ViewModel;
 
 use Magento\Framework\App\ObjectManager;
 use Sovendus\SovendusApp\Model\Config;
+use Magento\Framework\App\Config\ScopeConfigInterface;
+use Magento\Store\Model\ScopeInterface;
 
-require_once __DIR__ . '/../sovendus-plugins-commons/settings/get-settings-helper.php';
-require_once __DIR__ . '/../sovendus-plugins-commons/helpers/integration-data-helpers.php';
-require_once __DIR__ . '/../Constants.php';
-require_once __DIR__ . '/helper.php';
+require_once __DIR__ . '/../Model/Constants.php';
 
 class SovendusPage
 {
@@ -17,11 +16,16 @@ class SovendusPage
      */
     public static function get_sovendus_page_settings()
     {
-        list($language, $country) = detectLanguage();
         $objectManager = ObjectManager::getInstance();
+        $scopeConfig = $objectManager->get(ScopeConfigInterface::class);
+        $locale = $scopeConfig->getValue('general/locale/code', ScopeInterface::SCOPE_STORE);
+        $localeParts = explode('_', $locale);
+        $language = $localeParts[0]; // e.g., 'en'
+        $country = $localeParts[1];   // e.g., 'US'
+        
         $configModel = $objectManager->get(Config::class);
         $encoded_settings = $configModel->getConfig();
-        $integrationType = getIntegrationType(\PLUGIN_NAME,  \SOVENDUS_VERSION);
+        $integrationType = INTEGRATION_TYPE;
         return <<<EOD
             <script>
                 var sovPageConfig = {

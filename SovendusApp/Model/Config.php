@@ -2,18 +2,16 @@
 
 namespace Sovendus\SovendusApp\Model;
 
-use Sovendus\SovendusApp\Model\ConfigInterface;
+use Sovendus\SovendusApp\Api\ConfigInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\Config\Storage\WriterInterface;
 use Magento\Framework\App\Cache\TypeListInterface;
 use Magento\Framework\App\Cache\Frontend\Pool;
 
-require_once __DIR__ . "/../sovendus-plugins-commons/settings/get-settings-helper.php";
-require_once __DIR__ . "/../sovendus-plugins-commons/settings/app-settings.php";
-require_once __DIR__ . "/../Constants.php";
 
 class Config implements ConfigInterface
 {
+    const SETTINGS_KEY = "sovendus/sovendus_settings/general_settings/json_config";
     private $scopeConfig;
     private $configWriter;
     private $cacheTypeList;
@@ -40,17 +38,7 @@ class Config implements ConfigInterface
      */
     public function getConfig()
     {
-        $settings = \Get_Settings_Helper::get_settings(
-            null,
-            function ($key) {
-                return $this->scopeConfig->getValue($key, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
-            },
-            \SETTINGS_KEYS
-        );
-        // TODO handle custom hooks
-        $settings->voucherNetwork->iframeContainerId = ".page.messages";
-
-        return json_encode($settings);
+        return $this->scopeConfig->getValue($this::SETTINGS_KEY, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
     }
 
     /**
@@ -59,11 +47,7 @@ class Config implements ConfigInterface
      */
     public function saveConfig($config)
     {
-        $decodedConfig = json_decode($config, true);
-        $validated_settings = \Sovendus_App_Settings::fromJson($decodedConfig);
-        $settingsKeys = \SETTINGS_KEYS;
-
-        $this->configWriter->save($settingsKeys->newSettingsKey, json_encode($validated_settings));
+        $this->configWriter->save($this::SETTINGS_KEY, $config);
         $this->flushCache();
         return ['success' => true];
     }
