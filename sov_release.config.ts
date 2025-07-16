@@ -8,17 +8,17 @@ const releaseConfig: ReleaseConfig = {
         version: "2.1.0",
         foldersToZip: [
           {
-            input: "ps_sovendus",
+            input: "SovendusApp",
             output: "releases/%NAME%_%VERSION%.zip",
           },
           {
-            input: "ps_sovendus",
+            input: "SovendusApp",
             output: "releases/%NAME%_latest.zip",
           },
         ],
         versionBumper: [
           {
-            filePath: "ps_sovendus/constants.php",
+            filePath: "SovendusApp/Model/Constants.php",
             varName: "SOVENDUS_VERSION",
           },
         ],
