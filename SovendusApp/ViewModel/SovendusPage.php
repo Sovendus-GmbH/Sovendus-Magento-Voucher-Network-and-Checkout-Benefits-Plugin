@@ -20,9 +20,9 @@ class SovendusPage
         $scopeConfig = $objectManager->get(ScopeConfigInterface::class);
         $locale = $scopeConfig->getValue('general/locale/code', ScopeInterface::SCOPE_STORE);
         $localeParts = explode('_', $locale);
-        $language = $localeParts[0]; // e.g., 'en'
+        $language = strtoupper($localeParts[0]); // e.g., 'EN'
         $country = $localeParts[1];   // e.g., 'US'
-        
+
         $configModel = $objectManager->get(Config::class);
         $encoded_settings = $configModel->getConfig();
         $integrationType = INTEGRATION_TYPE;
