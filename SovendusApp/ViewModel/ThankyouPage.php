@@ -23,7 +23,7 @@ class ThankyouPage
 
         $order_data->initializeOrderData();
         // Get language from helper function
-        $language = \Sovendus\SovendusApp\Model\detectLanguage()[0];
+        $language = strtoupper(\Sovendus\SovendusApp\Model\detectLanguage()[0]);
         $encoded_settings = ObjectManager::getInstance()->get(Config::class)->getConfig();
 
         // Create order data structure
