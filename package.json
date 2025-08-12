@@ -1,6 +1,6 @@
 {
   "name": "sovendus_app_magento",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "Sovendus App Magento",
   "private": true,
   "type": "module",
